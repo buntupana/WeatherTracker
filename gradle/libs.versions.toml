@@ -68,6 +68,8 @@ appcompat = "1.7.1"
 jetbrainsKotlinJvm = "2.2.21"
 uiTextGoogleFonts = "1.9.4"
 uiGraphicsAndroid = "1.9.4"
+appcompatVersion = "1.7.1"
+material = "1.13.0"
 
 [libraries]
 
