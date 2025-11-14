@@ -11,12 +11,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.panabuntu.weathertracker.core.domain.AppLogger
 import com.panabuntu.weathertracker.ui.theme.WeatherTrackerTheme
+import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
+
+    private val logger: AppLogger by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             WeatherTrackerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->

@@ -39,10 +39,14 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
 dependencies {
+
+    // Modules
+    implementation(project(":core:domain"))
 
     implementation(libs.kotlinx.serialization.json)
 
@@ -53,6 +57,12 @@ dependencies {
 
     // Material
     implementation(libs.androidx.compose.material3)
+
+    implementation(libs.jakewharton.timber)
+
+    // Koin
+    implementation(platform(libs.koin.bom))
+    implementation(libs.bundles.koin)
 
     // Testing
     testImplementation(libs.junit)
