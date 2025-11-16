@@ -50,10 +50,10 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:data"))
     implementation(project(":core:di"))
-    implementation(project(":features:forecast_list:presentation"))
-    implementation(project(":features:forecast_list:domain"))
-    implementation(project(":features:forecast_list:data"))
-    implementation(project(":features:forecast_list:di"))
+    implementation(project(":feature:forecast_daily:presentation"))
+    implementation(project(":feature:forecast_daily:domain"))
+    implementation(project(":feature:forecast_daily:data"))
+    implementation(project(":feature:forecast_daily:di"))
 
     implementation(libs.kotlinx.serialization.json)
 
