@@ -1,21 +1,21 @@
-package com.panabuntu.weathertracker.feature.forecast_list.data.remote_data_source.dto
+package com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto
 
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Temp(
+data class TempDto(
     @SerialName("day")
-    val day: Double,
+    val day: Float,
     @SerialName("eve")
-    val eve: Double,
+    val eve: Float,
     @SerialName("max")
-    val max: Double,
+    val max: Float,
     @SerialName("min")
-    val min: Double,
+    val min: Float,
     @SerialName("morn")
-    val morn: Double,
+    val morn: Float,
     @SerialName("night")
-    val night: Double
+    val night: Float
 )

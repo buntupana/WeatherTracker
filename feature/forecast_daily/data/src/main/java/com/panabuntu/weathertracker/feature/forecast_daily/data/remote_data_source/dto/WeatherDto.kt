@@ -1,10 +1,10 @@
-package com.panabuntu.weathertracker.feature.forecast_list.data.remote_data_source.dto
+package com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Weather(
+data class WeatherDto(
     @SerialName("description")
     val description: String,
     @SerialName("icon")

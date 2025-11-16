@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.google.devtools.ksp)
 }
 
 android {
@@ -36,9 +37,22 @@ android {
 
 dependencies {
 
+    implementation(project(":core:data"))
     implementation(project(":feature:forecast_daily:data"))
     implementation(project(":feature:forecast_daily:domain"))
     implementation(project(":feature:forecast_daily:presentation"))
+
+    // Koin
+    implementation(platform(libs.koin.bom))
+    implementation(libs.bundles.koin)
+
+    // Networking
+    implementation(platform(libs.io.ktor.bom))
+    implementation(libs.bundles.ktor)
+
+    // Room
+    implementation(libs.bundles.room)
+    ksp(libs.androidx.room.compiler)
 
     implementation(libs.androidx.core.ktx)
     testImplementation(libs.junit)

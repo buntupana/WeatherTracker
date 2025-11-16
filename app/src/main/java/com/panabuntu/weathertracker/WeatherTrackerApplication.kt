@@ -3,13 +3,14 @@ package com.panabuntu.weathertracker
 import android.app.Application
 import com.panabuntu.weathertracker.core.di.coreModule
 import com.panabuntu.weathertracker.di.appModule
+import com.panabuntu.weathertracker.feature.forecast_daily.di.forecastDailyModule
 import com.panabuntu.weathertracker.utils.MyDebugTree
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
-class WeatherTrackerApplication: Application() {
+class WeatherTrackerApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -24,6 +25,7 @@ class WeatherTrackerApplication: Application() {
             modules(
                 appModule,
                 coreModule,
+                forecastDailyModule
             )
         }
     }
