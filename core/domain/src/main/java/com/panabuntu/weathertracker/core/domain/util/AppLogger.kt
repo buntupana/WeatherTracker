@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.core.domain
+package com.panabuntu.weathertracker.core.domain.util
 
 interface AppLogger {
     fun d(message: String)

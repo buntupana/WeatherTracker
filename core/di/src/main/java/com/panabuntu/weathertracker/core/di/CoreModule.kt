@@ -1,8 +1,8 @@
 package com.panabuntu.weathertracker.core.di
 
-import com.panabuntu.weathertracker.core.data.UrlProviderImpl
-import com.panabuntu.weathertracker.core.domain.AppLogger
-import com.panabuntu.weathertracker.core.domain.UrlProvider
+import com.panabuntu.weathertracker.core.data.provider.UrlProviderImpl
+import com.panabuntu.weathertracker.core.domain.util.AppLogger
+import com.panabuntu.weathertracker.core.domain.provider.UrlProvider
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.DefaultRequest

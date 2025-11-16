@@ -1,6 +1,6 @@
 package com.panabuntu.weathertracker.utils
 
-import com.panabuntu.weathertracker.core.domain.AppLogger
+import com.panabuntu.weathertracker.core.domain.util.AppLogger
 import timber.log.Timber
 
 class TimberLogger : AppLogger {
