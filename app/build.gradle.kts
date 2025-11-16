@@ -46,7 +46,14 @@ android {
 dependencies {
 
     // Modules
+    implementation(project(":core:presentation"))
     implementation(project(":core:domain"))
+    implementation(project(":core:data"))
+    implementation(project(":core:di"))
+    implementation(project(":features:forecast_list:presentation"))
+    implementation(project(":features:forecast_list:domain"))
+    implementation(project(":features:forecast_list:data"))
+    implementation(project(":features:forecast_list:di"))
 
     implementation(libs.kotlinx.serialization.json)
 

@@ -1,6 +1,7 @@
 package com.panabuntu.weathertracker
 
 import android.app.Application
+import com.panabuntu.weathertracker.core.di.coreModule
 import com.panabuntu.weathertracker.di.appModule
 import com.panabuntu.weathertracker.utils.MyDebugTree
 import org.koin.android.ext.koin.androidContext
@@ -21,7 +22,8 @@ class WeatherTrackerApplication: Application() {
             androidContext(this@WeatherTrackerApplication)
             // Load modules
             modules(
-                appModule
+                appModule,
+                coreModule,
             )
         }
     }

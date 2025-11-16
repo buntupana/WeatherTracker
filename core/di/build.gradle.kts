@@ -40,8 +40,13 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:presentation"))
 
-    implementation(libs.androidx.core.ktx)
+    // Koin
+    implementation(platform(libs.koin.bom))
+    implementation(libs.bundles.koin)
+
+    // Networking
+    implementation(platform(libs.io.ktor.bom))
+    implementation(libs.bundles.ktor)
+
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }
