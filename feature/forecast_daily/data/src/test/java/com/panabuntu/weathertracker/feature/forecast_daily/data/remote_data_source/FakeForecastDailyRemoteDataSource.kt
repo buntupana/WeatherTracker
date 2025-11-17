@@ -4,10 +4,13 @@ import com.panabuntu.weathertracker.core.domain.result.NetworkError
 import com.panabuntu.weathertracker.core.domain.result.Result
 import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto.ForecastDailyDto
 
-interface ForecastDailyRemoteDataSource {
+class FakeForecastDailyRemoteDataSource : ForecastDailyRemoteDataSource {
 
-    suspend fun getDailyForecast(
-        lat: Double,
-        lon: Double,
-    ): Result<ForecastDailyDto, NetworkError>
+    var result: Result<ForecastDailyDto, NetworkError>? = null
+
+    override suspend fun getDailyForecast(
+        lat: Double, lon: Double
+    ): Result<ForecastDailyDto, NetworkError> {
+        return result!!
+    }
 }

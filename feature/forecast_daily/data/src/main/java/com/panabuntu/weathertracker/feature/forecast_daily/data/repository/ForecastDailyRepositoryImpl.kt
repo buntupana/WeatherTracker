@@ -1,7 +1,8 @@
 package com.panabuntu.weathertracker.feature.forecast_daily.data.repository
 
 import com.panabuntu.weathertracker.core.data.database.AppDataBase
-import com.panabuntu.weathertracker.core.data.util.getFlowResult
+import com.panabuntu.weathertracker.core.data.util.DateUtils
+import com.panabuntu.weathertracker.core.data.util.networkBoundResource
 import com.panabuntu.weathertracker.core.domain.result.Error
 import com.panabuntu.weathertracker.core.domain.result.Result
 import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toEntity
@@ -10,7 +11,7 @@ import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_sour
 import com.panabuntu.weathertracker.feature.forecast_daily.repository.model.Daily
 import com.panabuntu.weathertracker.feature.forecast_daily.repository.repository.ForecastListRepository
 import kotlinx.coroutines.flow.Flow
-import java.time.Instant
+import kotlinx.coroutines.flow.map
 
 class ForecastDailyRepositoryImpl(
     private val remoteDataSource: ForecastDailyRemoteDataSource,
@@ -21,24 +22,17 @@ class ForecastDailyRepositoryImpl(
         lat: Double,
         lon: Double
     ): Flow<Result<List<Daily>, Error>> {
-        return getFlowResult(
-            prevDataBaseQuery = {
-                database.dailyDao.deleteOlderThan(Instant.now().toEpochMilli())
+
+        return networkBoundResource(
+            query = {
+                database.dailyDao.deleteOlderThan(DateUtils.getCurrentDayTimestampUTC())
+                database.dailyDao.getAll().map { it.toModel() }
             },
-            networkCall = {
+            fetch = {
                 remoteDataSource.getDailyForecast(lat = lat, lon = lon)
             },
-            mapToEntity = {
-                it.daily.toEntity()
-            },
-            updateDataBaseQuery = {
-                database.dailyDao.upsertAll(it)
-            },
-            fetchFromDataBaseQuery = {
-                database.dailyDao.getAll()
-            },
-            mapToModel = {
-                it.toModel()
+            saveFetchResult = {
+                database.dailyDao.upsertAll(it.daily.toEntity())
             }
         )
     }

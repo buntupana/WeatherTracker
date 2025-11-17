@@ -60,7 +60,9 @@ dependencies {
     implementation(libs.bundles.room)
     ksp(libs.androidx.room.compiler)
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    // Local Tests
+    testImplementation(libs.bundles.local.tests)
+
+    // Instrumented Tests
+    androidTestImplementation(libs.bundles.instrumented.tests)
 }

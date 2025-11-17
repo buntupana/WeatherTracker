@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.feature.forecast_daily.data
+package com.panabuntu.weathertracker.core.testing
 
 import org.junit.Test
 

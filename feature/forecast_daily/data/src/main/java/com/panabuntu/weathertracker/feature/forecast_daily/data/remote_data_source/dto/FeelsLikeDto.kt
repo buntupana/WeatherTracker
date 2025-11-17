@@ -7,11 +7,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class FeelsLikeDto(
     @SerialName("day")
-    val day: Double,
+    val day: Float,
     @SerialName("eve")
-    val eve: Double,
+    val eve: Float,
     @SerialName("morn")
-    val morn: Double,
+    val morn: Float,
     @SerialName("night")
-    val night: Double
+    val night: Float
 )

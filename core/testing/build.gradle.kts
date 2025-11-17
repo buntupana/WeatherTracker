@@ -1,12 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.google.devtools.ksp)
 }
 
 android {
-    namespace = "com.panabuntu.weathertracker.forecast_list.data"
+    namespace = "com.panabuntu.weathertracker.core.testing"
     compileSdk {
         version = release(libs.versions.compile.sdk.get().toInt())
     }
@@ -34,27 +33,19 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
 
     // Modules
     implementation(project(":core:data"))
-    implementation(project(":core:domain"))
-    implementation(project(":core:testing"))
-    implementation(project(":feature:forecast_daily:domain"))
-    testImplementation(project(":core:data"))
-
-    // Kotlin
-    implementation(libs.kotlinx.serialization.json)
 
     // Koin
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)
-
-    // Networking
-    implementation(platform(libs.io.ktor.bom))
-    implementation(libs.bundles.ktor)
 
     // Room
     implementation(libs.bundles.room)

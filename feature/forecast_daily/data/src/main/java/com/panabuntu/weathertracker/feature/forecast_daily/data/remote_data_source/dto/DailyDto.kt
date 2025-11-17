@@ -9,7 +9,7 @@ data class DailyDto(
     @SerialName("clouds")
     val clouds: Int,
     @SerialName("dew_point")
-    val dewPoint: Double,
+    val dewPoint: Float,
     @SerialName("dt")
     val dt: Long,
     @SerialName("feels_like")
@@ -17,17 +17,17 @@ data class DailyDto(
     @SerialName("humidity")
     val humidity: Int,
     @SerialName("moon_phase")
-    val moonPhase: Double,
+    val moonPhase: Float,
     @SerialName("moonrise")
     val moonrise: Int,
     @SerialName("moonset")
     val moonset: Int,
     @SerialName("pop")
-    val pop: Double,
+    val pop: Float,
     @SerialName("pressure")
     val pressure: Int,
     @SerialName("rain")
-    val rain: Double,
+    val rain: Float,
     @SerialName("summary")
     val summary: String,
     @SerialName("sunrise")
@@ -37,13 +37,13 @@ data class DailyDto(
     @SerialName("temp")
     val temp: TempDto,
     @SerialName("uvi")
-    val uvi: Double,
+    val uvi: Float,
     @SerialName("weather")
     val weather: List<WeatherDto>,
     @SerialName("wind_deg")
     val windDeg: Int,
     @SerialName("wind_gust")
-    val windGust: Double,
+    val windGust: Float,
     @SerialName("wind_speed")
-    val windSpeed: Double
+    val windSpeed: Float
 )

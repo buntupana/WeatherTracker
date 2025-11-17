@@ -56,8 +56,13 @@ junitVersion = "1.3.0"
 junit_android = '1.1.3'
 test_core = '1.4.0'
 espresso = '3.7.0'
-test_runner = '1.4.0'
+testRunner = '1.7.0'
 mockito = '4.5.0'
+testCoreAux = "1.7.0"
+testCoreKtx = "1.7.0"
+kotlinxCoroutinesTest = "1.10.2"
+turbine = "1.2.1"
+truth = "1.4.5"
 
 # Plugins
 agp = "8.13.1"
@@ -72,6 +77,9 @@ appcompatVersion = "1.7.1"
 material = "1.13.0"
 androidxAppcompat = "1.7.1"
 materialVersion = "1.13.0"
+coreTesting = "2.2.0"
+androidxAppcompatVersion = "1.7.1"
+googleMaterial = "1.13.0"
 
 [libraries]
 
@@ -150,8 +158,26 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
+
+androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
+
+koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4"}
+koin-test = { module = "io.insert-koin:koin-test" }
+
+androidx-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+core-ktx = { module = "androidx.test:core-ktx", version.ref = "testCoreKtx" }
+androidx-runner = { module = "androidx.test:runner", version.ref = "testRunner" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+
+io-ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock"}
+
+androidx-core = { module = "androidx.test:core", version.ref = "testCoreAux" }
+
+cash-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+
+truth = { module = "com.google.truth:truth", version.ref = "truth"}
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppcompatVersion" }
+material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -163,7 +189,6 @@ kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref =
 google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 secrets-gradle = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
-
 
 [bundles]
 compose = [
@@ -198,4 +223,29 @@ ktor = [
 coil = [
     "io-coil-kt",
     "io-coil-kt-network"
+]
+local-tests = [
+    "junit",
+    "truth",
+    "androidx-core",
+    "androidx-core-testing",
+    "kotlinx-coroutines-test",
+    "koin-test-junit4",
+    "koin-test",
+    "io-ktor-client-mock",
+    "cash-turbine"
+]
+
+instrumented-tests = [
+    "truth",
+    "androidx-junit",
+    "androidx-ui-test-junit4",
+    "androidx-core-testing",
+    "core-ktx",
+    "androidx-runner",
+    "kotlinx-coroutines-test",
+    "androidx-espresso-core",
+    "koin-test-junit4",
+    "koin-test",
+    "cash-turbine"
 ]
