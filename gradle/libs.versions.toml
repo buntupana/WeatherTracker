@@ -121,7 +121,7 @@ koin-compose-viewmodel = { module = "io.insert-koin:koin-androidx-compose-viewmo
 koin-compose-navigation = { module = "io.insert-koin:koin-androidx-compose-navigation" }
 
 #Theming
-androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen"}
+androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
 
 #Network
 io-ktor-bom = { group = "io.ktor", name = "ktor-bom", version.ref = "ktor_bom" }
@@ -161,21 +161,21 @@ androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-te
 
 androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
 
-koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4"}
-koin-test = { module = "io.insert-koin:koin-test" }
+koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin-bom" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin-bom" }
 
 androidx-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 core-ktx = { module = "androidx.test:core-ktx", version.ref = "testCoreKtx" }
 androidx-runner = { module = "androidx.test:runner", version.ref = "testRunner" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 
-io-ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock"}
+io-ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor_bom" }
 
 androidx-core = { module = "androidx.test:core", version.ref = "testCoreAux" }
 
 cash-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
-truth = { module = "com.google.truth:truth", version.ref = "truth"}
+truth = { module = "com.google.truth:truth", version.ref = "truth" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppcompatVersion" }
 material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
 

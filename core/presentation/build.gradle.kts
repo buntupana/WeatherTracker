@@ -53,4 +53,10 @@ dependencies {
     // Koin
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)
+
+    // Local Tests
+    testImplementation(libs.bundles.local.tests)
+
+    // Instrumented Tests
+    androidTestImplementation(libs.bundles.instrumented.tests)
 }

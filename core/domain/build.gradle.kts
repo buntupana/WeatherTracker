@@ -40,14 +40,6 @@ dependencies {
 
     implementation(kotlin("reflect"))
 
-    testImplementation("io.insert-koin:koin-test:4.1.1")
-    testImplementation("io.insert-koin:koin-test-junit4:4.1.1")
-
-    testImplementation("io.ktor:ktor-client-mock:3.3.2")
-
     // Local Tests
     testImplementation(libs.bundles.local.tests)
-
-    // Instrumented Tests
-    androidTestImplementation(libs.bundles.instrumented.tests)
 }
