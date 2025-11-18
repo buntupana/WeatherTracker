@@ -42,4 +42,7 @@ dependencies {
 
     // Local Tests
     testImplementation(libs.bundles.local.tests)
+
+    // Instrumented Tests
+    androidTestImplementation(libs.bundles.instrumented.tests)
 }
