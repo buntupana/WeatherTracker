@@ -44,14 +44,14 @@ class ForecastDailyRepositoryTest : KoinTest {
         remoteSource.result = remoteDaily
 
         // final result will be the data from network
-        val finalResult = remoteDaily.data.daily.toEntity().toModel()
+        val finalResult = remoteDaily.data.daily.toEntity().toModel({""})
 
         repository.getDaily(0.0, 0.0).test {
 
             // Local database data emitted
             val first = awaitItem()
             assertThat(first).isInstanceOf(Result.Success::class.java)
-            assertThat((first as Result.Success).data).containsExactlyElementsIn(localDaily.toModel())
+            assertThat((first as Result.Success).data).containsExactlyElementsIn(localDaily.toModel({""}))
 
             // getting new data from network through database
             val second = awaitItem()
@@ -73,7 +73,7 @@ class ForecastDailyRepositoryTest : KoinTest {
             // Local database data emitted
             val first = awaitItem()
             assertThat(first).isInstanceOf(Result.Success::class.java)
-            assertThat((first as Result.Success).data).containsExactlyElementsIn(localDaily.toModel())
+            assertThat((first as Result.Success).data).containsExactlyElementsIn(localDaily.toModel({""}))
 
             // Network error emitted
             val error = awaitItem()
@@ -81,7 +81,7 @@ class ForecastDailyRepositoryTest : KoinTest {
 
             // Local database data emitted again
             val second = awaitItem()
-            assertThat((second as Result.Success).data).containsExactlyElementsIn(localDaily.toModel())
+            assertThat((second as Result.Success).data).containsExactlyElementsIn(localDaily.toModel({""}))
 
             cancelAndIgnoreRemainingEvents()
         }
@@ -100,7 +100,7 @@ class ForecastDailyRepositoryTest : KoinTest {
         remoteSource.result = remoteDaily
 
         // final result will be the data from network
-        val finalResult = remoteDaily.data.daily.toEntity().toModel()
+        val finalResult = remoteDaily.data.daily.toEntity().toModel({""})
 
         repository.getDaily(0.0, 0.0).test {
 

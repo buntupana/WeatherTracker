@@ -13,7 +13,8 @@ data class AppDimensions(
     val spacingLg: Float = 16f,
     val spacingXl: Float = 24f,
 
-    val iconForecastList: Float = 80f
+    val iconForecastList: Float = 80f,
+    val iconTopBar: Float = 80f
 )
 
 val LocalAppDimens = staticCompositionLocalOf { AppDimensions() }

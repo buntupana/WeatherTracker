@@ -24,16 +24,30 @@ fun Daily.toViewEntity(): DayForecastEntityView {
         else -> R.string.forecast_daily_sunday
     }
 
-    val dateFormat = "${date.dayOfMonth}/${date.monthValue}"
-
+    val monthResId = when (date.monthValue) {
+        1 -> R.string.forecast_daily_january_short
+        2 -> R.string.forecast_daily_february_short
+        3 -> R.string.forecast_daily_march_short
+        4 -> R.string.forecast_daily_april_short
+        5 -> R.string.forecast_daily_may_short
+        6 -> R.string.forecast_daily_june_short
+        7 -> R.string.forecast_daily_july_short
+        8 -> R.string.forecast_daily_august_short
+        9 -> R.string.forecast_daily_september_short
+        10 -> R.string.forecast_daily_october_short
+        11 -> R.string.forecast_daily_november_short
+        12 -> R.string.forecast_daily_december_short
+        else -> R.string.forecast_daily_january_short
+    }
     val maxTempStr = "${maxTemp.fastRoundToInt()}°"
     val minTempStr = "${minTemp.fastRoundToInt()}°"
 
     return DayForecastEntityView(
         timestamp = date.toEpochDay(),
         iconUrl = iconUrl,
-        day = UiText.StringResource(dayResId),
-        date = dateFormat,
+        dayName = UiText.StringResource(dayResId),
+        dayOfMonth = date.dayOfMonth,
+        monthName = UiText.StringResource(monthResId),
         maxTemp = maxTempStr,
         minTemp = minTempStr,
         description = description,

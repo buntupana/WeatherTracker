@@ -5,25 +5,31 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.panabuntu.weathertracker.core.presentation.comp.ErrorAndRetry
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.theme.LocalAppDimens
+import com.panabuntu.weathertracker.core.presentation.util.SetSystemBarsColors
 import com.panabuntu.weathertracker.core.presentation.util.UiText
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp.DayForecastCard
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp.ForecastDailyTopBar
 import com.panabuntu.weathertracker.forecast_list.presentation.R
 import org.koin.androidx.compose.koinViewModel
 
@@ -50,14 +56,26 @@ private fun ForecastDailyContent(
 
     val dimens = LocalAppDimens.current
 
+    SetSystemBarsColors(
+        statusBarColor = MaterialTheme.colorScheme.background,
+        navigationBarColor = MaterialTheme.colorScheme.background
+    )
+
     Scaffold(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            ForecastDailyTopBar()
+        }
     ) { paddingValues ->
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
+                .padding(
+                    top = paddingValues.calculateTopPadding(),
+                    start = paddingValues.calculateStartPadding(LayoutDirection.Rtl),
+                    end = paddingValues.calculateEndPadding(LayoutDirection.Rtl),
+                )
         ) {
 
             if (state.isLoading) {
@@ -85,6 +103,7 @@ private fun ForecastDailyContent(
                 modifier = Modifier.fillMaxWidth(),
                 contentPadding = PaddingValues(
                     top = dimens.paddingLarge.dp,
+                    bottom = paddingValues.calculateBottomPadding()
                 )
             ) {
 
