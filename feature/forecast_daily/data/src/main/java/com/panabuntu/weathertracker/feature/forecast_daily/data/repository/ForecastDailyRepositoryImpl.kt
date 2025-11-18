@@ -3,6 +3,7 @@ package com.panabuntu.weathertracker.feature.forecast_daily.data.repository
 import com.panabuntu.weathertracker.core.data.database.AppDataBase
 import com.panabuntu.weathertracker.core.data.util.DateUtils
 import com.panabuntu.weathertracker.core.data.util.networkBoundResource
+import com.panabuntu.weathertracker.core.domain.Const
 import com.panabuntu.weathertracker.core.domain.provider.UrlProvider
 import com.panabuntu.weathertracker.core.domain.result.Error
 import com.panabuntu.weathertracker.core.domain.result.Result
@@ -13,6 +14,7 @@ import com.panabuntu.weathertracker.feature.forecast_daily.repository.model.Dail
 import com.panabuntu.weathertracker.feature.forecast_daily.repository.repository.ForecastDailyRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.take
 
 class ForecastDailyRepositoryImpl(
     private val remoteDataSource: ForecastDailyRemoteDataSource,
@@ -28,7 +30,11 @@ class ForecastDailyRepositoryImpl(
         return networkBoundResource(
             query = {
                 database.dailyDao.deleteOlderThan(DateUtils.getCurrentDayTimestampUTC())
-                database.dailyDao.getByLocation(lat = lat, lon = lon).map {
+                database.dailyDao.getByLocation(
+                    lat = lat,
+                    lon = lon,
+                    limit = Const.DEFAULT_NUMBER_DAILY_ITEMS
+                ).map {
                     it.toModel({ icon -> urlProvider.createIconUrl(icon = icon) })
                 }
             },

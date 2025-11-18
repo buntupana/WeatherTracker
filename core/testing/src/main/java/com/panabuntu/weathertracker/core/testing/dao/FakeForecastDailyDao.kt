@@ -5,6 +5,7 @@ import com.panabuntu.weathertracker.core.data.entity.DailyEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import kotlin.collections.filter
 import kotlin.collections.filterNot
@@ -27,9 +28,12 @@ class FakeForecastDailyDao : DailyDao {
 
     override fun getByLocation(
         lat: Double,
-        lon: Double
+        lon: Double,
+        limit: Int,
     ): Flow<List<DailyEntity>> {
-        return items.map { it.filter { it.lat == lat && it.lon == lon } }
+        return items.map {
+            it.filter { it.lat == lat && it.lon == lon }.sortedBy { it.date }.take(limit)
+        }
     }
 
     override suspend fun deleteOlderThan(timestamp: Long) {

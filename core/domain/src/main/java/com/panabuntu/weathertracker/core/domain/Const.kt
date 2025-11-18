@@ -9,4 +9,6 @@ object Const {
 
     const val DEFAULT_UNITS: String = "metric"
     const val DEFAULT_LANGUAGE: String = "en"
+
+    const val DEFAULT_NUMBER_DAILY_ITEMS = 7
 }
