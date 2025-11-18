@@ -12,6 +12,7 @@ import com.panabuntu.weathertracker.core.presentation.util.UiText
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper.toViewEntity
 import com.panabuntu.weathertracker.feature.forecast_daily.repository.usecase.GetDailyForecastUseCase
 import com.panabuntu.weathertracker.forecast_list.presentation.R
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
@@ -45,6 +46,8 @@ class ForecastDailyViewModel(
             initialValue = ForecastDailyState(locationName = locationName)
         )
 
+    private var getDailyForecastJob: Job? = null
+
     fun onIntent(intent: ForecastDailyIntent) {
         logger.d("onIntent() called with: intent = [$intent]")
         viewModelScope.launch {
@@ -54,70 +57,40 @@ class ForecastDailyViewModel(
         }
     }
 
-    private suspend fun getDailyForecast() {
+    private fun getDailyForecast() {
 
-        _state.update {
-            it.copy(
-                isLoading = state.value.dailyList.isNullOrEmpty(),
-                isRefreshing = state.value.dailyList?.isNotEmpty() ?: false,
-                isLoadingError = false,
-                errorMessage = null
-            )
-        }
-
-        getDailyForecastUseCase(
-            lat = latitude,
-            lon = longitude
-        ).collectLatest { result ->
-            result.onError {
-                if (state.value.dailyList.isNullOrEmpty()) {
-                    _state.update {
-                        it.copy(
-                            isLoading = false,
-                            isRefreshing = false,
-                            isLoadingError = true,
-                            errorMessage = UiText.StringResource(
-                                resId = R.string.forecast_daily_error_loading_daily_data
-                            )
-                        )
-                    }
-                } else {
-                    _state.update {
-                        it.copy(
-                            isLoading = false,
-                            isRefreshing = false,
-                            isLoadingError = false,
-                            errorMessage = null
-                        )
-                    }
-                    SnackbarController.sendEvent(
-                        SnackbarEvent(
-                            message = UiText.StringResource(
-                                resId = R.string.forecast_daily_error_refreshing_daily_data
-                            )
-                        )
-                    )
-                }
+        getDailyForecastJob?.cancel()
+        getDailyForecastJob = viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    isLoading = state.value.dailyList.isEmpty(),
+                    isRefreshing = state.value.dailyList.isNotEmpty()
+                )
             }
-            result.onSuccess { dailyList ->
 
-                if (dailyList.isEmpty()) {
-                    _state.update {
-                        it.copy(
-                            isLoading = false,
-                            isRefreshing = false,
-                            isLoadingError = true,
-                            errorMessage = UiText.StringResource(
-                                resId = R.string.forecast_daily_error_loading_daily_data
+            getDailyForecastUseCase(
+                lat = latitude,
+                lon = longitude
+            ).collectLatest { result ->
+                result.onError {
+                    _state.update { it.copy(isLoading = false, isRefreshing = false)
+                    }
+                    if (state.value.dailyList.isNotEmpty()) {
+                        SnackbarController.sendEvent(
+                            event = SnackbarEvent(
+                                message = UiText.StringResource(
+                                    resId = R.string.forecast_daily_error_refreshing_daily_data
+                                )
                             )
                         )
                     }
-                } else {
+                }
+                result.onSuccess { dailyList ->
                     _state.update {
                         it.copy(
                             dailyList = dailyList.toViewEntity(),
                             isLoading = false,
-                            isRefreshing = false,
+                            isRefreshing = false
                         )
                     }
                 }

@@ -1,6 +1,9 @@
 package com.panabuntu.weathertracker.feature.forecast_daily.presentation
 
 import android.content.res.Configuration
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -19,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -28,7 +32,6 @@ import com.panabuntu.weathertracker.core.presentation.comp.ErrorAndRetry
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.theme.LocalAppDimens
 import com.panabuntu.weathertracker.core.presentation.util.SetSystemBarsColors
-import com.panabuntu.weathertracker.core.presentation.util.UiText
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp.DayForecastCard
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp.ForecastDailyTopBar
 import com.panabuntu.weathertracker.forecast_list.presentation.R
@@ -78,57 +81,63 @@ private fun ForecastDailyContent(
                     end = paddingValues.calculateEndPadding(LayoutDirection.Rtl),
                 ),
             isRefreshing = state.isRefreshing,
-            onRefresh = {onIntent(ForecastDailyIntent.GetDailyForecast)}
+            onRefresh = { onIntent(ForecastDailyIntent.GetDailyForecast) }
         ) {
 
-            if (state.isLoading) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
+            when{
+                state.isLoading -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+                state.dailyList.isEmpty() -> {
+                    ErrorAndRetry(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(dimens.paddingLarge.dp),
+                        errorMessage = stringResource(R.string.forecast_daily_error_loading_daily_data),
+                        onRetryClick = {
+                            onIntent(ForecastDailyIntent.GetDailyForecast)
+                        }
+                    )
                 }
             }
 
-            if (state.isLoadingError) {
-                ErrorAndRetry(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(dimens.paddingLarge.dp),
-                    errorMessage = state.errorMessage?.asString().orEmpty(),
-                    onRetryClick = {
-                        onIntent(ForecastDailyIntent.GetDailyForecast)
-                    }
-                )
-            }
-
-            if (state.dailyList.isNullOrEmpty()) return@PullToRefreshBox
-
-            LazyColumn(
-                modifier = Modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(
-                    top = dimens.paddingLarge.dp,
-                    bottom = paddingValues.calculateBottomPadding()
-                )
+            AnimatedVisibility(
+                visible = state.dailyList.isNotEmpty(),
+                enter = fadeIn(),
+                exit = fadeOut()
             ) {
 
-                items(
-                    count = state.dailyList.size,
-                    key = { index ->
-                        state.dailyList[index].timestamp
-                    }
-                ) { index ->
-
-                    val item = state.dailyList[index]
-
-                    DayForecastCard(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = dimens.paddingLarge.dp),
-                        item = item
+                LazyColumn(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentPadding = PaddingValues(
+                        top = dimens.paddingLarge.dp,
+                        bottom = paddingValues.calculateBottomPadding()
                     )
+                ) {
 
-                    Spacer(modifier = Modifier.size(dimens.paddingLarge.dp))
+                    items(
+                        count = state.dailyList.size,
+                        key = { index ->
+                            state.dailyList[index].timestamp
+                        }
+                    ) { index ->
+
+                        val item = state.dailyList[index]
+
+                        DayForecastCard(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = dimens.paddingLarge.dp),
+                            item = item
+                        )
+
+                        Spacer(modifier = Modifier.size(dimens.paddingLarge.dp))
+                    }
                 }
             }
         }
@@ -151,8 +160,6 @@ private fun ForecastDailyScreenPreview() {
         ForecastDailyContent(
             state = ForecastDailyState(
                 isLoading = false,
-                isLoadingError = true,
-                errorMessage = UiText.StringResource(R.string.forecast_daily_error_refreshing_daily_data),
                 dailyList = listOf(),
                 locationName = Const.DEFAULT_LOCATION_NAME
             ),
