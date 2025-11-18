@@ -2,6 +2,7 @@ package com.panabuntu.weathertracker.core.di
 
 import com.panabuntu.weathertracker.core.data.database.AppDataBase
 import com.panabuntu.weathertracker.core.data.provider.UrlProviderImpl
+import com.panabuntu.weathertracker.core.domain.Const
 import com.panabuntu.weathertracker.core.domain.provider.UrlProvider
 import com.panabuntu.weathertracker.core.domain.util.AppLogger
 import com.panabuntu.weathertracker.core.presentation.navigation.NavRoutesMain
@@ -52,8 +53,8 @@ val coreModule = module {
                 url {
                     url(urlProvider.baseUrlApi)
                     parameters.append(name = "appid", value = urlProvider.apiKey)
-                    parameters.append(name = "units", value = "metric")
-                    parameters.append(name = "lang", value = "en")
+                    parameters.append(name = "units", value = Const.DEFAULT_UNITS)
+                    parameters.append(name = "lang", value = Const.DEFAULT_LANGUAGE)
                 }
                 header(HttpHeaders.ContentType, ContentType.Application.Json)
             }
