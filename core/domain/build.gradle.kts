@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -35,8 +37,9 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(kotlin("reflect"))
+
+    // Local Tests
+    testImplementation(libs.bundles.local.tests)
 }

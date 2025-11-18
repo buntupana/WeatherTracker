@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.ui.theme
+package com.panabuntu.weathertracker.core.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

@@ -12,7 +12,7 @@ import com.panabuntu.weathertracker.feature.forecast_daily.data.dummy_data.Forec
 import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toEntity
 import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toModel
 import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.FakeForecastDailyRemoteDataSource
-import com.panabuntu.weathertracker.feature.forecast_daily.repository.repository.ForecastListRepository
+import com.panabuntu.weathertracker.feature.forecast_daily.repository.repository.ForecastDailyRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
@@ -23,7 +23,7 @@ import java.time.LocalDate
 
 class ForecastDailyRepositoryTest : KoinTest {
 
-    private val repository by inject<ForecastListRepository>()
+    private val repository by inject<ForecastDailyRepository>()
     private val database by inject<FakeAppDataBase>()
     private val remoteSource by inject<FakeForecastDailyRemoteDataSource>()
 

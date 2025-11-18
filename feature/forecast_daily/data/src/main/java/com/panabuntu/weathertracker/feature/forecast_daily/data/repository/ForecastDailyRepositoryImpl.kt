@@ -9,14 +9,14 @@ import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toEntity
 import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toModel
 import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.ForecastDailyRemoteDataSource
 import com.panabuntu.weathertracker.feature.forecast_daily.repository.model.Daily
-import com.panabuntu.weathertracker.feature.forecast_daily.repository.repository.ForecastListRepository
+import com.panabuntu.weathertracker.feature.forecast_daily.repository.repository.ForecastDailyRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class ForecastDailyRepositoryImpl(
     private val remoteDataSource: ForecastDailyRemoteDataSource,
     private val database: AppDataBase
-) : ForecastListRepository {
+) : ForecastDailyRepository {
 
     override suspend fun getDaily(
         lat: Double,

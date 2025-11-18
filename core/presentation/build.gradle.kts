@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -39,8 +40,17 @@ dependencies {
     // Modules
     implementation(project(":core:domain"))
 
-    implementation(libs.androidx.core.ktx)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.kotlinx.serialization.json)
+
+    // Compose
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
+    implementation(libs.androidx.activity.compose)
+
+    // Material
+    implementation(libs.androidx.compose.material3)
+
+    // Koin
+    implementation(platform(libs.koin.bom))
+    implementation(libs.bundles.koin)
 }
