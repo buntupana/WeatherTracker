@@ -2,11 +2,21 @@ package com.panabuntu.weathertracker.feature.forecast_daily.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.panabuntu.weathertracker.core.domain.result.onError
+import com.panabuntu.weathertracker.core.domain.result.onSuccess
 import com.panabuntu.weathertracker.core.domain.util.AppLogger
+import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarController
+import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarEvent
+import com.panabuntu.weathertracker.core.presentation.util.UiText
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper.toViewEntity
 import com.panabuntu.weathertracker.feature.forecast_daily.repository.usecase.GetDailyForecastUseCase
+import com.panabuntu.weathertracker.forecast_list.presentation.R
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ForecastDailyViewModel(
@@ -14,21 +24,81 @@ class ForecastDailyViewModel(
     private val getDailyForecastUseCase: GetDailyForecastUseCase
 ) : ViewModel() {
 
-    val _state = MutableStateFlow(ForecastDailyState())
-    var state = _state.asStateFlow()
+    private var hasLoadedInitialData = false
+
+    private val _state = MutableStateFlow(ForecastDailyState())
+    var state = _state
+        .onStart {
+            if (!hasLoadedInitialData) {
+                onIntent(ForecastDailyIntent.GetDailyForecast)
+                hasLoadedInitialData = true
+            }
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000L),
+            initialValue = ForecastDailyState()
+        )
 
     fun onIntent(intent: ForecastDailyIntent) {
-        logger.d("onEvent() called with: event = [$intent]")
+        logger.d("onIntent() called with: intent = [$intent]")
         viewModelScope.launch {
-//            when (event) {
-//
-//            }
+            when (intent) {
+                ForecastDailyIntent.GetDailyForecast -> getDailyForecast()
+            }
         }
     }
 
     private suspend fun getDailyForecast() {
-        getDailyForecastUseCase().collectLatest { result ->
 
+        _state.update {
+            it.copy(
+                isLoading = state.value.dailyList.isNullOrEmpty(),
+                isLoadingError = false,
+                errorMessage = null
+            )
+        }
+
+        getDailyForecastUseCase().collectLatest { result ->
+            result.onError {
+                if (state.value.dailyList == null) {
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            isLoadingError = true,
+                            errorMessage = UiText.StringResource(
+                                resId = R.string.forecast_daily_error_loading_daily_data
+                            )
+                        )
+                    }
+                } else {
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            isLoadingError = false,
+                            errorMessage = null
+                        )
+                    }
+                    SnackbarController.sendEvent(
+                        SnackbarEvent(
+                            message = UiText.StringResource(
+                                resId = R.string.forecast_daily_error_refreshing_daily_data
+                            )
+                        )
+                    )
+                }
+            }
+            result.onSuccess { dailyList ->
+
+                val resultList = dailyList.ifEmpty { null }
+
+                _state.update {
+                    it.copy(
+                        dailyList = resultList?.toViewEntity(),
+                        isLoading = false,
+                    )
+                }
+            }
         }
     }
 }

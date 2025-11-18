@@ -54,6 +54,9 @@ dependencies {
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)
 
+    // Coil
+    implementation(libs.bundles.coil)
+
     // Local Tests
     testImplementation(libs.bundles.local.tests)
 

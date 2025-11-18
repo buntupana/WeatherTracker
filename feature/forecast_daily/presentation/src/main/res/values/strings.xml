@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="forecast_daily_error_refreshing_daily_data">Error refreshing data, try swipe down to retry</string>
+    <string name="forecast_daily_error_loading_daily_data">Error loading data, try swipe down to retry</string>
+
+    <string name="forecast_daily_today">Today</string>
+    <string name="forecast_daily_monday">Monday</string>
+    <string name="forecast_daily_tuesday">Tuesday</string>
+    <string name="forecast_daily_wednesday">Wednesday</string>
+    <string name="forecast_daily_thursday">Thursday</string>
+    <string name="forecast_daily_friday">Friday</string>
+    <string name="forecast_daily_saturday">Saturday</string>
+    <string name="forecast_daily_sunday">Sunday</string>
+
+    <string name="forecast_daily_temp_max">Max: %s</string>
+    <string name="forecast_daily_temp_min">Low: %s</string>
+
+
+</resources>

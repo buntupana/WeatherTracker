@@ -2,8 +2,8 @@ package com.panabuntu.weathertracker.core.di
 
 import com.panabuntu.weathertracker.core.data.database.AppDataBase
 import com.panabuntu.weathertracker.core.data.provider.UrlProviderImpl
-import com.panabuntu.weathertracker.core.domain.util.AppLogger
 import com.panabuntu.weathertracker.core.domain.provider.UrlProvider
+import com.panabuntu.weathertracker.core.domain.util.AppLogger
 import com.panabuntu.weathertracker.core.presentation.navigation.NavRoutesMain
 import com.panabuntu.weathertracker.core.presentation.navigation.NavRoutesMainImpl
 import io.ktor.client.HttpClient
@@ -22,7 +22,6 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import java.util.Locale
 
 
 val coreModule = module {
@@ -54,7 +53,7 @@ val coreModule = module {
                     url(urlProvider.baseUrlApi)
                     parameters.append(name = "appid", value = urlProvider.apiKey)
                     parameters.append(name = "units", value = "metric")
-                    parameters.append(name = "lang", value = Locale.getDefault().language)
+                    parameters.append(name = "lang", value = "en")
                 }
                 header(HttpHeaders.ContentType, ContentType.Application.Json)
             }

@@ -7,5 +7,5 @@ data class Daily(
     val maxTemp: Float,
     val minTemp: Float,
     val description: String?,
-    val icon: String?
+    val iconUrl: String?
 )

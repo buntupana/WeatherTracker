@@ -3,6 +3,7 @@ package com.panabuntu.weathertracker.feature.forecast_daily.data.repository
 import com.panabuntu.weathertracker.core.data.database.AppDataBase
 import com.panabuntu.weathertracker.core.data.util.DateUtils
 import com.panabuntu.weathertracker.core.data.util.networkBoundResource
+import com.panabuntu.weathertracker.core.domain.provider.UrlProvider
 import com.panabuntu.weathertracker.core.domain.result.Error
 import com.panabuntu.weathertracker.core.domain.result.Result
 import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toEntity
@@ -15,7 +16,8 @@ import kotlinx.coroutines.flow.map
 
 class ForecastDailyRepositoryImpl(
     private val remoteDataSource: ForecastDailyRemoteDataSource,
-    private val database: AppDataBase
+    private val database: AppDataBase,
+    private val urlProvider: UrlProvider
 ) : ForecastDailyRepository {
 
     override suspend fun getDaily(
@@ -26,7 +28,9 @@ class ForecastDailyRepositoryImpl(
         return networkBoundResource(
             query = {
                 database.dailyDao.deleteOlderThan(DateUtils.getCurrentDayTimestampUTC())
-                database.dailyDao.getAll().map { it.toModel() }
+                database.dailyDao.getAll().map {
+                    it.toModel({ icon -> urlProvider.createIconUrl(icon = icon) })
+                }
             },
             fetch = {
                 remoteDataSource.getDailyForecast(lat = lat, lon = lon)

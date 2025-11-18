@@ -6,15 +6,20 @@ import com.panabuntu.weathertracker.feature.forecast_daily.repository.model.Dail
 import java.time.format.DateTimeParseException
 
 @Throws(DateTimeParseException::class)
-fun List<DailyEntity>.toModel(): List<Daily> {
+fun List<DailyEntity>.toModel(
+    createIconUrl: (icon: String) -> String
+): List<Daily> {
 
     return map {
+
+        val iconUrl = if(it.icon == null) null else createIconUrl(it.icon!!)
+
         Daily(
             date = it.date.toLocalDate(),
             maxTemp = it.maxTemp,
             minTemp = it.minTemp,
             description = it.description,
-            icon = it.icon
+            iconUrl = iconUrl
         )
     }
 }
