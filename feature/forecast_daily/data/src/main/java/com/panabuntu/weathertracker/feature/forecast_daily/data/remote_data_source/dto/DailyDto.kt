@@ -27,7 +27,7 @@ data class DailyDto(
     @SerialName("pressure")
     val pressure: Int,
     @SerialName("rain")
-    val rain: Float,
+    val rain: Float? = null,
     @SerialName("summary")
     val summary: String,
     @SerialName("sunrise")
@@ -43,7 +43,10 @@ data class DailyDto(
     @SerialName("wind_deg")
     val windDeg: Int,
     @SerialName("wind_gust")
-    val windGust: Float,
+    val windGust: Float? = null,
     @SerialName("wind_speed")
-    val windSpeed: Float
+    val windSpeed: Float,
+    @SerialName("snow")
+    val snow: Float? = null
+
 )
