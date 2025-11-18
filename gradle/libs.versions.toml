@@ -37,6 +37,7 @@ koin-bom = "4.1.1"
 
 #Ktor
 ktor_bom = "3.3.2"
+ktor = "3.3.2"
 
 #Storage
 datastore = "1.1.7"
@@ -169,7 +170,7 @@ core-ktx = { module = "androidx.test:core-ktx", version.ref = "testCoreKtx" }
 androidx-runner = { module = "androidx.test:runner", version.ref = "testRunner" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 
-io-ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor_bom" }
+io-ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 
 androidx-core = { module = "androidx.test:core", version.ref = "testCoreAux" }
 
@@ -228,8 +229,6 @@ coil = [
 local-tests = [
     "junit",
     "truth",
-    "androidx-core",
-    "androidx-core-testing",
     "kotlinx-coroutines-test",
     "koin-test-junit4",
     "koin-test",

@@ -2,6 +2,7 @@ package com.panabuntu.weathertracker.feature.forecast_daily.data.repository
 
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
+import com.panabuntu.weathertracker.core.domain.provider.UrlProvider
 import com.panabuntu.weathertracker.core.domain.result.NetworkError
 import com.panabuntu.weathertracker.core.domain.result.Result
 import com.panabuntu.weathertracker.core.testing.database.FakeAppDataBase
@@ -26,41 +27,46 @@ class ForecastDailyRepositoryTest : KoinTest {
     private val repository by inject<ForecastDailyRepository>()
     private val database by inject<FakeAppDataBase>()
     private val remoteSource by inject<FakeForecastDailyRemoteDataSource>()
+    private val urlProvider by inject<UrlProvider>()
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
-        modules(coreModuleTest,forecastDailyModuleTest)
+        modules(coreModuleTest, forecastDailyModuleTest)
     }
 
     @Test
-    fun `getDaily() emits cached data then fetched data and replace data with same date`() = runTest {
+    fun `getDaily() emits cached data then fetched data and replace data with same date`() =
+        runTest {
 
-        // entity data
-        val localDaily = DailyEntityDummy.getDailyEntityList()
-        database.dailyDao.upsertAll(localDaily)
+            // entity data
+            val dailyEntityList = DailyEntityDummy.getDailyEntityList()
+            database.dailyDao.upsertAll(dailyEntityList)
 
-        // dto data
-        val remoteDaily = ForecastDailyDtoDummy.getSuccess()
-        remoteSource.result = remoteDaily
+            // dto data
+            val remoteDaily = ForecastDailyDtoDummy.getSuccess()
+            remoteSource.result = remoteDaily
 
-        // final result will be the data from network
-        val finalResult = remoteDaily.data.daily.toEntity().toModel({""})
+            // final result will be the data from network
+            val finalResult =
+                remoteDaily.data.daily.toEntity().toModel({ urlProvider.createIconUrl(it) })
 
-        repository.getDaily(0.0, 0.0).test {
+            repository.getDaily(0.0, 0.0).test {
 
-            // Local database data emitted
-            val first = awaitItem()
-            assertThat(first).isInstanceOf(Result.Success::class.java)
-            assertThat((first as Result.Success).data).containsExactlyElementsIn(localDaily.toModel({""}))
+                // Local database data emitted
+                val first = awaitItem()
+                assertThat(first).isInstanceOf(Result.Success::class.java)
+                assertThat((first as Result.Success).data)
+                    .containsExactlyElementsIn(dailyEntityList.toModel({ urlProvider.createIconUrl(it) })
+                )
 
-            // getting new data from network through database
-            val second = awaitItem()
-            assertThat(second).isInstanceOf(Result.Success::class.java)
-            assertThat((second as Result.Success).data).containsExactlyElementsIn(finalResult)
+                // getting new data from network through database
+                val second = awaitItem()
+                assertThat(second).isInstanceOf(Result.Success::class.java)
+                assertThat((second as Result.Success).data).containsExactlyElementsIn(finalResult)
 
-            cancelAndIgnoreRemainingEvents()
+                cancelAndIgnoreRemainingEvents()
+            }
         }
-    }
 
     @Test
     fun `getDaily() emits error when remote fails`() = runTest {
@@ -73,7 +79,8 @@ class ForecastDailyRepositoryTest : KoinTest {
             // Local database data emitted
             val first = awaitItem()
             assertThat(first).isInstanceOf(Result.Success::class.java)
-            assertThat((first as Result.Success).data).containsExactlyElementsIn(localDaily.toModel({""}))
+            assertThat((first as Result.Success).data)
+                .containsExactlyElementsIn(localDaily.toModel({ urlProvider.createIconUrl(it) }))
 
             // Network error emitted
             val error = awaitItem()
@@ -81,7 +88,9 @@ class ForecastDailyRepositoryTest : KoinTest {
 
             // Local database data emitted again
             val second = awaitItem()
-            assertThat((second as Result.Success).data).containsExactlyElementsIn(localDaily.toModel({""}))
+            assertThat((second as Result.Success).data)
+                .containsExactlyElementsIn(localDaily.toModel({ urlProvider.createIconUrl(it)})
+            )
 
             cancelAndIgnoreRemainingEvents()
         }
@@ -100,7 +109,7 @@ class ForecastDailyRepositoryTest : KoinTest {
         remoteSource.result = remoteDaily
 
         // final result will be the data from network
-        val finalResult = remoteDaily.data.daily.toEntity().toModel({""})
+        val finalResult = remoteDaily.data.daily.toEntity().toModel({ urlProvider.createIconUrl(it)})
 
         repository.getDaily(0.0, 0.0).test {
 
