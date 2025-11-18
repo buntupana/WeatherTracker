@@ -17,15 +17,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.navigation.NavRoutesMain
 import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarController
+import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.util.ObserveAsEvents
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.ForeCastDailyRoute
 import com.panabuntu.weathertracker.navigation.ForeCastDailyRouteNav
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import kotlin.getValue
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 class MainActivity : ComponentActivity() {

@@ -29,6 +29,9 @@ class ForecastDailyRepositoryTest : KoinTest {
     private val remoteSource by inject<FakeForecastDailyRemoteDataSource>()
     private val urlProvider by inject<UrlProvider>()
 
+    private val lat = 0.0
+    private val lon = 0.0
+
     @get:Rule
     val koinTestRule = KoinTestRule.create {
         modules(coreModuleTest, forecastDailyModuleTest)
@@ -48,16 +51,17 @@ class ForecastDailyRepositoryTest : KoinTest {
 
             // final result will be the data from network
             val finalResult =
-                remoteDaily.data.daily.toEntity().toModel({ urlProvider.createIconUrl(it) })
+                remoteDaily.data.daily.toEntity(lat, lon).toModel({ urlProvider.createIconUrl(it) })
 
-            repository.getDaily(0.0, 0.0).test {
+            repository.getDaily(lat, lon).test {
 
                 // Local database data emitted
                 val first = awaitItem()
                 assertThat(first).isInstanceOf(Result.Success::class.java)
                 assertThat((first as Result.Success).data)
-                    .containsExactlyElementsIn(dailyEntityList.toModel({ urlProvider.createIconUrl(it) })
-                )
+                    .containsExactlyElementsIn(
+                        dailyEntityList.toModel({ urlProvider.createIconUrl(it) })
+                    )
 
                 // getting new data from network through database
                 val second = awaitItem()
@@ -89,8 +93,9 @@ class ForecastDailyRepositoryTest : KoinTest {
             // Local database data emitted again
             val second = awaitItem()
             assertThat((second as Result.Success).data)
-                .containsExactlyElementsIn(localDaily.toModel({ urlProvider.createIconUrl(it)})
-            )
+                .containsExactlyElementsIn(
+                    localDaily.toModel({ urlProvider.createIconUrl(it) })
+                )
 
             cancelAndIgnoreRemainingEvents()
         }
@@ -109,9 +114,10 @@ class ForecastDailyRepositoryTest : KoinTest {
         remoteSource.result = remoteDaily
 
         // final result will be the data from network
-        val finalResult = remoteDaily.data.daily.toEntity().toModel({ urlProvider.createIconUrl(it)})
+        val finalResult =
+            remoteDaily.data.daily.toEntity(lat, lon).toModel({ urlProvider.createIconUrl(it) })
 
-        repository.getDaily(0.0, 0.0).test {
+        repository.getDaily(lat, lon).test {
 
             // getting new data from network through database
             val second = awaitItem()

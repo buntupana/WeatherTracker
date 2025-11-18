@@ -28,7 +28,7 @@ class ForecastDailyRepositoryImpl(
         return networkBoundResource(
             query = {
                 database.dailyDao.deleteOlderThan(DateUtils.getCurrentDayTimestampUTC())
-                database.dailyDao.getAll().map {
+                database.dailyDao.getByLocation(lat = lat, lon = lon).map {
                     it.toModel({ icon -> urlProvider.createIconUrl(icon = icon) })
                 }
             },
@@ -36,7 +36,7 @@ class ForecastDailyRepositoryImpl(
                 remoteDataSource.getDailyForecast(lat = lat, lon = lon)
             },
             saveFetchResult = {
-                database.dailyDao.upsertAll(it.daily.toEntity())
+                database.dailyDao.upsertAll(it.daily.toEntity(lat = lat, lon = lon))
             }
         )
     }

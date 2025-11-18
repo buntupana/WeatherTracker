@@ -9,8 +9,7 @@ import kotlinx.coroutines.flow.Flow
 class GetDailyForecastUseCase(
     private val repository: ForecastDailyRepository
 ) {
-
-    suspend operator fun invoke(): Flow<Result<List<Daily>, Error>> {
-        return repository.getDaily(lat = 40.4983, lon = -3.5676)
+    suspend operator fun invoke(lat: Double, lon: Double): Flow<Result<List<Daily>, Error>> {
+        return repository.getDaily(lat = lat, lon = lon)
     }
 }

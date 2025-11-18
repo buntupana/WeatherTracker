@@ -2,6 +2,7 @@ package com.panabuntu.weathertracker.feature.forecast_daily.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.panabuntu.weathertracker.core.domain.Const
 import com.panabuntu.weathertracker.core.domain.result.onError
 import com.panabuntu.weathertracker.core.domain.result.onSuccess
 import com.panabuntu.weathertracker.core.domain.util.AppLogger
@@ -24,9 +25,13 @@ class ForecastDailyViewModel(
     private val getDailyForecastUseCase: GetDailyForecastUseCase
 ) : ViewModel() {
 
+    private val locationName = Const.DEFAULT_LOCATION_NAME
+    private val latitude = Const.DEFAULT_LAT
+    private val longitude = Const.DEFAULT_LON
+
     private var hasLoadedInitialData = false
 
-    private val _state = MutableStateFlow(ForecastDailyState())
+    private val _state = MutableStateFlow(ForecastDailyState(locationName = locationName))
     var state = _state
         .onStart {
             if (!hasLoadedInitialData) {
@@ -37,7 +42,7 @@ class ForecastDailyViewModel(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000L),
-            initialValue = ForecastDailyState()
+            initialValue = ForecastDailyState(locationName = locationName)
         )
 
     fun onIntent(intent: ForecastDailyIntent) {
@@ -54,17 +59,22 @@ class ForecastDailyViewModel(
         _state.update {
             it.copy(
                 isLoading = state.value.dailyList.isNullOrEmpty(),
+                isRefreshing = state.value.dailyList?.isNotEmpty() ?: false,
                 isLoadingError = false,
                 errorMessage = null
             )
         }
 
-        getDailyForecastUseCase().collectLatest { result ->
+        getDailyForecastUseCase(
+            lat = latitude,
+            lon = longitude
+        ).collectLatest { result ->
             result.onError {
-                if (state.value.dailyList == null) {
+                if (state.value.dailyList.isNullOrEmpty()) {
                     _state.update {
                         it.copy(
                             isLoading = false,
+                            isRefreshing = false,
                             isLoadingError = true,
                             errorMessage = UiText.StringResource(
                                 resId = R.string.forecast_daily_error_loading_daily_data
@@ -75,6 +85,7 @@ class ForecastDailyViewModel(
                     _state.update {
                         it.copy(
                             isLoading = false,
+                            isRefreshing = false,
                             isLoadingError = false,
                             errorMessage = null
                         )
@@ -90,13 +101,25 @@ class ForecastDailyViewModel(
             }
             result.onSuccess { dailyList ->
 
-                val resultList = dailyList.ifEmpty { null }
-
-                _state.update {
-                    it.copy(
-                        dailyList = resultList?.toViewEntity(),
-                        isLoading = false,
-                    )
+                if (dailyList.isEmpty()) {
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            isRefreshing = false,
+                            isLoadingError = true,
+                            errorMessage = UiText.StringResource(
+                                resId = R.string.forecast_daily_error_loading_daily_data
+                            )
+                        )
+                    }
+                } else {
+                    _state.update {
+                        it.copy(
+                            dailyList = dailyList.toViewEntity(),
+                            isLoading = false,
+                            isRefreshing = false,
+                        )
+                    }
                 }
             }
         }

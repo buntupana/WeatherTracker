@@ -2,12 +2,15 @@ package com.panabuntu.weathertracker.core.data.entity
 
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 
-@Entity(tableName = "daily")
+@Entity(
+    tableName = "daily",
+    primaryKeys = ["date", "lat", "lon"]
+)
 data class DailyEntity(
-    @PrimaryKey
     val date: Long,
+    val lat: Double,
+    val lon: Double,
     val maxTemp: Float,
     val minTemp: Float,
     val description: String?,

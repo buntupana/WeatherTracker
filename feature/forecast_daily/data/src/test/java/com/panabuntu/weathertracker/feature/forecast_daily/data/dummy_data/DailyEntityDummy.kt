@@ -17,6 +17,8 @@ object DailyEntityDummy {
 
             DailyEntity(
                 date = date,
+                lat = 0.0,
+                lon = 0.0,
                 maxTemp = 22f,
                 minTemp = 10f,
                 icon = "01d",

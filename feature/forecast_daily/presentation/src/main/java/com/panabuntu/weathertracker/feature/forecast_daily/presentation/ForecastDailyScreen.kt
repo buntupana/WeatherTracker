@@ -2,7 +2,6 @@ package com.panabuntu.weathertracker.feature.forecast_daily.presentation
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.calculateEndPadding
@@ -15,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.panabuntu.weathertracker.core.domain.Const
 import com.panabuntu.weathertracker.core.presentation.comp.ErrorAndRetry
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.theme.LocalAppDimens
@@ -64,18 +65,20 @@ private fun ForecastDailyContent(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-            ForecastDailyTopBar()
+            ForecastDailyTopBar(locationName = state.locationName)
         }
     ) { paddingValues ->
 
-        Column(
+        PullToRefreshBox(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(
                     top = paddingValues.calculateTopPadding(),
                     start = paddingValues.calculateStartPadding(LayoutDirection.Rtl),
                     end = paddingValues.calculateEndPadding(LayoutDirection.Rtl),
-                )
+                ),
+            isRefreshing = state.isRefreshing,
+            onRefresh = {onIntent(ForecastDailyIntent.GetDailyForecast)}
         ) {
 
             if (state.isLoading) {
@@ -99,7 +102,7 @@ private fun ForecastDailyContent(
                 )
             }
 
-            if (state.dailyList.isNullOrEmpty()) return@Column
+            if (state.dailyList.isNullOrEmpty()) return@PullToRefreshBox
 
             LazyColumn(
                 modifier = Modifier.fillMaxWidth(),
@@ -150,7 +153,8 @@ private fun ForecastDailyScreenPreview() {
                 isLoading = false,
                 isLoadingError = true,
                 errorMessage = UiText.StringResource(R.string.forecast_daily_error_refreshing_daily_data),
-                dailyList = listOf()
+                dailyList = listOf(),
+                locationName = Const.DEFAULT_LOCATION_NAME
             ),
             onIntent = {}
         )

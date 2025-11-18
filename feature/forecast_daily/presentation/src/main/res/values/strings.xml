@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="forecast_daily_error_refreshing_daily_data">Error refreshing data, try swipe down to retry</string>
-    <string name="forecast_daily_error_loading_daily_data">Error loading data, try swipe down to retry</string>
+    <string name="forecast_daily_error_loading_daily_data">Error loading data, try again</string>
 
     <string name="forecast_daily_today">Today</string>
     <string name="forecast_daily_monday">Monday</string>
