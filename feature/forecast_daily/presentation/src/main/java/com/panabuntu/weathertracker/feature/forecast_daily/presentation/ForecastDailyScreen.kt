@@ -89,7 +89,9 @@ private fun ForecastDailyContent(
 
             if (state.isLoadingError) {
                 ErrorAndRetry(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(dimens.paddingLarge.dp),
                     errorMessage = state.errorMessage?.asString().orEmpty(),
                     onRetryClick = {
                         onIntent(ForecastDailyIntent.GetDailyForecast)

@@ -13,7 +13,8 @@ val forecastDailyModuleTest = module {
     single<ForecastDailyRepository> {
         ForecastDailyRepositoryImpl(
             remoteDataSource = get(),
-            database = get()
+            database = get(),
+            urlProvider = get()
         )
     }
 }

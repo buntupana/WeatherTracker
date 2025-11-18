@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,11 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.panabuntu.weathertracker.core.presentation.R
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.theme.LocalAppDimens
+import com.panabuntu.weathertracker.core.presentation.util.balanced
 import com.panabuntu.weathertracker.core.presentation.util.getOnBackgroundColor
 
 @Composable
@@ -40,7 +43,9 @@ fun ErrorAndRetry(
     ) {
         Text(
             text = errorMessage,
-            color = contentColor
+            color = contentColor,
+            textAlign = TextAlign.Center,
+            style = LocalTextStyle.current.balanced()
         )
 
         Spacer(modifier = Modifier.padding(vertical = dimens.paddingLarge.dp))

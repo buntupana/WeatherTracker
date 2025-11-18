@@ -42,6 +42,7 @@ dependencies {
 
     // Modules
     implementation(project(":core:data"))
+    implementation(project(":core:domain"))
 
     // Koin
     implementation(platform(libs.koin.bom))
