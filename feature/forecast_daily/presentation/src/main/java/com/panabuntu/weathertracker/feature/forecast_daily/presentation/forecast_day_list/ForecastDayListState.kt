@@ -2,7 +2,7 @@ package com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecas
 
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.comp.DayForecastItem
 
-data class ForecastDailyState(
+data class ForecastDayListState(
     val isLoading: Boolean = false,
     val isRefreshing: Boolean = false,
     val locationName: String,

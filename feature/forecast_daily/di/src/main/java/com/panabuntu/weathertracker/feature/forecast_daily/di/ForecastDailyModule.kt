@@ -4,7 +4,7 @@ import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_sour
 import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.ForecastDailyRemoteDataSourceImpl
 import com.panabuntu.weathertracker.feature.forecast_daily.data.repository.ForecastDailyRepositoryImpl
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_detail.ForecastDayDetailViewModel
-import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.ForecastDailyViewModel
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.ForecastDayListViewModel
 import com.panabuntu.weathertracker.feature.forecast_daily.repository.ForecastDailyRepository
 import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastDetailUseCase
 import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastListUseCase
@@ -24,7 +24,7 @@ private val domainModule = module {
 }
 
 private val presentationModule = module {
-    factoryOf(::ForecastDailyViewModel)
+    factoryOf(::ForecastDayListViewModel)
     factoryOf(::ForecastDayDetailViewModel)
 }
 

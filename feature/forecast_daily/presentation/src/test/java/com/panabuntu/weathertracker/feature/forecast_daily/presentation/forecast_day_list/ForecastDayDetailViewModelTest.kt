@@ -1,15 +1,13 @@
-package com.panabuntu.weathertracker.feature.forecast_daily.presentation
+package com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list
 
 import app.cash.turbine.test
-import com.google.common.truth.Truth.assertThat
+import com.google.common.truth.Truth
 import com.panabuntu.weathertracker.core.domain.Const
 import com.panabuntu.weathertracker.core.domain.result.NetworkError
 import com.panabuntu.weathertracker.core.domain.result.Result
 import com.panabuntu.weathertracker.core.domain.util.AppLogger
 import com.panabuntu.weathertracker.core.domain.util.toUTCStartOfDayTimestamp
 import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimple
-import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.ForecastDailyState
-import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.ForecastDailyViewModel
 import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastListUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,7 +27,7 @@ import org.mockito.kotlin.whenever
 import java.time.LocalDate
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class ForecastDailyViewModelTest {
+class ForecastDayDetailViewModelTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private val testDispatcher = StandardTestDispatcher()
@@ -40,7 +38,7 @@ class ForecastDailyViewModelTest {
     @Mock
     lateinit var getDayForecastListUseCase: GetDayForecastListUseCase
 
-    private lateinit var viewModel: ForecastDailyViewModel
+    private lateinit var viewModel: ForecastDayListViewModel
 
     private val dayForecastSimpleLists: List<DayForecastSimple>
         get() {
@@ -66,7 +64,7 @@ class ForecastDailyViewModelTest {
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         MockitoAnnotations.openMocks(this)
-        viewModel = ForecastDailyViewModel(
+        viewModel = ForecastDayListViewModel(
             logger = logger,
             getDayForecastListUseCase = getDayForecastListUseCase
         )
@@ -83,9 +81,9 @@ class ForecastDailyViewModelTest {
 
             val initialEmission = awaitItem()
 
-            assertThat(initialEmission.isLoading).isFalse()
-            assertThat(initialEmission.isRefreshing).isFalse()
-            assertThat(initialEmission.dailyList).isEmpty()
+            Truth.assertThat(initialEmission.isLoading).isFalse()
+            Truth.assertThat(initialEmission.isRefreshing).isFalse()
+            Truth.assertThat(initialEmission.dailyList).isEmpty()
 
             // loading emission
             awaitItem()
@@ -93,8 +91,8 @@ class ForecastDailyViewModelTest {
             // result emission
             val finalEmission = awaitItem()
 
-            assertThat(finalEmission.isLoading).isFalse()
-            assertThat(finalEmission.isRefreshing).isFalse()
+            Truth.assertThat(finalEmission.isLoading).isFalse()
+            Truth.assertThat(finalEmission.isRefreshing).isFalse()
         }
 
         verify(getDayForecastListUseCase).invoke(any(), any())
@@ -103,7 +101,7 @@ class ForecastDailyViewModelTest {
     @Test
     fun `set loading state before calling GetDailyForecast`() = runTest {
 
-        val finalState = ForecastDailyState(
+        val finalState = ForecastDayListState(
             lat = Const.DEFAULT_LAT,
             lon = Const.DEFAULT_LON,
             isLoading = true,
@@ -121,7 +119,7 @@ class ForecastDailyViewModelTest {
             skipItems(1)
             val emission = awaitItem()
 
-            assertThat(emission).isEqualTo(finalState)
+            Truth.assertThat(emission).isEqualTo(finalState)
 
             cancelAndConsumeRemainingEvents()
         }
@@ -141,10 +139,10 @@ class ForecastDailyViewModelTest {
 
             val emission = awaitItem()
 
-            assertThat(emission.dailyList.size).isEqualTo(dayForecastSimpleLists.size)
+            Truth.assertThat(emission.dailyList.size).isEqualTo(dayForecastSimpleLists.size)
 
-            assertThat(emission.isLoading).isFalse()
-            assertThat(emission.isRefreshing).isFalse()
+            Truth.assertThat(emission.isLoading).isFalse()
+            Truth.assertThat(emission.isRefreshing).isFalse()
 
             ensureAllEventsConsumed()
         }
@@ -166,8 +164,8 @@ class ForecastDailyViewModelTest {
             val emission = awaitItem()
 
             // when list is empty, dailyList should be null if there wasn't any previous data
-            assertThat(emission.isLoading).isFalse()
-            assertThat(emission.isRefreshing).isFalse()
+            Truth.assertThat(emission.isLoading).isFalse()
+            Truth.assertThat(emission.isRefreshing).isFalse()
 
             ensureAllEventsConsumed()
         }
@@ -194,9 +192,9 @@ class ForecastDailyViewModelTest {
 
                 val emission = awaitItem()
 
-                assertThat(emission.dailyList).isNotNull()
-                assertThat(emission.isLoading).isFalse()
-                assertThat(emission.isRefreshing).isFalse()
+                Truth.assertThat(emission.dailyList).isNotNull()
+                Truth.assertThat(emission.isLoading).isFalse()
+                Truth.assertThat(emission.isRefreshing).isFalse()
             }
 
             verify(getDayForecastListUseCase).invoke(any(), any())
@@ -215,9 +213,9 @@ class ForecastDailyViewModelTest {
 
             val emission = awaitItem()
 
-            assertThat(emission.isLoading).isFalse()
-            assertThat(emission.isRefreshing).isFalse()
-            assertThat(emission.dailyList).isEmpty()
+            Truth.assertThat(emission.isLoading).isFalse()
+            Truth.assertThat(emission.isRefreshing).isFalse()
+            Truth.assertThat(emission.dailyList).isEmpty()
 
             ensureAllEventsConsumed()
         }
@@ -240,9 +238,9 @@ class ForecastDailyViewModelTest {
 
             val emission = awaitItem()
 
-            assertThat(emission.isLoading).isFalse()
-            assertThat(emission.isRefreshing).isFalse()
-            assertThat(emission.dailyList).isNotEmpty()
+            Truth.assertThat(emission.isLoading).isFalse()
+            Truth.assertThat(emission.isRefreshing).isFalse()
+            Truth.assertThat(emission.dailyList).isNotEmpty()
 
             ensureAllEventsConsumed()
         }

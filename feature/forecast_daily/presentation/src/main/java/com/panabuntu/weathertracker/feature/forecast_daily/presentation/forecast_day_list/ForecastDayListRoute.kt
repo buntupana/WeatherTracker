@@ -4,4 +4,4 @@ import com.panabuntu.weathertracker.core.presentation.navigation.Route
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object ForeCastDailyRoute: Route
+data object ForecastDayListRoute: Route

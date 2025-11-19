@@ -76,5 +76,6 @@ dependencies {
     testImplementation(libs.bundles.local.tests)
 
     // Instrumented Tests
+    androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.instrumented.tests)
 }

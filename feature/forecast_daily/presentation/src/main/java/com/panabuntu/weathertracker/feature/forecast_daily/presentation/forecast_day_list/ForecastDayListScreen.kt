@@ -37,7 +37,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ForecastDailyScreen(
-    viewModel: ForecastDailyViewModel = koinViewModel(),
+    viewModel: ForecastDayListViewModel = koinViewModel(),
     onDayClick: (date: Long, lat: Double, lon: Double, locationName: String) -> Unit
 ) {
 
@@ -47,7 +47,7 @@ fun ForecastDailyScreen(
         state = state,
         onIntent = { intent ->
             when (intent) {
-                is ForecastDailyIntent.OnDayClick -> {
+                is ForecastDayListIntent.OnDayClick -> {
                     onDayClick(
                         intent.date,
                         state.lat,
@@ -64,8 +64,8 @@ fun ForecastDailyScreen(
 
 @Composable
 private fun ForecastDailyContent(
-    state: ForecastDailyState,
-    onIntent: (ForecastDailyIntent) -> Unit
+    state: ForecastDayListState,
+    onIntent: (ForecastDayListIntent) -> Unit
 ) {
 
     val dimens = LocalAppDimens.current
@@ -86,7 +86,7 @@ private fun ForecastDailyContent(
                     end = paddingValues.calculateEndPadding(LayoutDirection.Rtl),
                 ),
             isRefreshing = state.isRefreshing,
-            onRefresh = { onIntent(ForecastDailyIntent.GetDailyForecast) }
+            onRefresh = { onIntent(ForecastDayListIntent.GetDailyForecast) }
         ) {
 
             when {
@@ -106,7 +106,7 @@ private fun ForecastDailyContent(
                             .padding(dimens.paddingLarge.dp),
                         errorMessage = stringResource(R.string.core_error_loading_data),
                         onRetryClick = {
-                            onIntent(ForecastDailyIntent.GetDailyForecast)
+                            onIntent(ForecastDayListIntent.GetDailyForecast)
                         }
                     )
                 }
@@ -141,7 +141,7 @@ private fun ForecastDailyContent(
                                 .padding(horizontal = dimens.paddingLarge.dp),
                             item = item,
                             onClick = {
-                                onIntent(ForecastDailyIntent.OnDayClick(item.timestamp))
+                                onIntent(ForecastDayListIntent.OnDayClick(item.timestamp))
                             }
                         )
 
@@ -167,7 +167,7 @@ private fun ForecastDailyContent(
 private fun ForecastDailyScreenPreview() {
     AppTheme {
         ForecastDailyContent(
-            state = ForecastDailyState(
+            state = ForecastDayListState(
                 isLoading = false,
                 dailyList = listOf(),
                 locationName = Const.DEFAULT_LOCATION_NAME,

@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ForecastDailyViewModel(
+class ForecastDayListViewModel(
     private val logger: AppLogger,
     private val getDayForecastListUseCase: GetDayForecastListUseCase
 ) : ViewModel() {
@@ -33,7 +33,7 @@ class ForecastDailyViewModel(
     private var hasLoadedInitialData = false
 
     private val _state = MutableStateFlow(
-        ForecastDailyState(
+        ForecastDayListState(
             locationName = locationName,
             lat = latitude,
             lon = longitude
@@ -42,14 +42,14 @@ class ForecastDailyViewModel(
     var state = _state
         .onStart {
             if (!hasLoadedInitialData) {
-                onIntent(ForecastDailyIntent.GetDailyForecast)
+                onIntent(ForecastDayListIntent.GetDailyForecast)
                 hasLoadedInitialData = true
             }
         }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000L),
-            initialValue = ForecastDailyState(
+            initialValue = ForecastDayListState(
                 locationName = locationName,
                 lat = latitude,
                 lon = longitude
@@ -58,11 +58,11 @@ class ForecastDailyViewModel(
 
     private var getDailyForecastJob: Job? = null
 
-    fun onIntent(intent: ForecastDailyIntent) {
+    fun onIntent(intent: ForecastDayListIntent) {
         logger.d("onIntent() called with: intent = [$intent]")
         viewModelScope.launch {
             when (intent) {
-                ForecastDailyIntent.GetDailyForecast -> getDailyForecast()
+                ForecastDayListIntent.GetDailyForecast -> getDailyForecast()
                 else -> {}
             }
         }
