@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.panabuntu.weathertracker.forecast_list.data"
+    namespace = "com.panabuntu.weathertracker.feature.forecast_hourly.di"
     compileSdk {
         version = release(libs.versions.compile.sdk.get().toInt())
     }
@@ -37,11 +37,11 @@ android {
 
 dependencies {
 
-    // Modules
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
-    testImplementation(project(":core:testing"))
-    implementation(project(":feature:forecast_daily:domain"))
+    implementation(project(":feature:forecast_hourly:data"))
+    implementation(project(":feature:forecast_hourly:domain"))
+    implementation(project(":feature:forecast_hourly:presentation"))
 
     // Koin
     implementation(platform(libs.koin.bom))
@@ -55,9 +55,8 @@ dependencies {
     implementation(libs.bundles.room)
     ksp(libs.androidx.room.compiler)
 
-    // Local Tests
-    testImplementation(libs.bundles.local.tests)
-
-    // Instrumented Tests
-    androidTestImplementation(libs.bundles.instrumented.tests)
+    implementation(libs.androidx.core.ktx)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }

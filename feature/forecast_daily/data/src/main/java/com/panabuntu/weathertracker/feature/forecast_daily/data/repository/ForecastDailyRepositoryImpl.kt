@@ -10,11 +10,10 @@ import com.panabuntu.weathertracker.core.domain.result.Result
 import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toEntity
 import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toModel
 import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.ForecastDailyRemoteDataSource
-import com.panabuntu.weathertracker.feature.forecast_daily.repository.model.Daily
-import com.panabuntu.weathertracker.feature.forecast_daily.repository.repository.ForecastDailyRepository
+import com.panabuntu.weathertracker.feature.forecast_daily.model.Daily
+import com.panabuntu.weathertracker.feature.forecast_daily.repository.ForecastDailyRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.take
 
 class ForecastDailyRepositoryImpl(
     private val remoteDataSource: ForecastDailyRemoteDataSource,

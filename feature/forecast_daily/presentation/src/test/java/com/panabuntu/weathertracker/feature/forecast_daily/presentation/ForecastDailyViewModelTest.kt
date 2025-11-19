@@ -6,8 +6,8 @@ import com.panabuntu.weathertracker.core.domain.Const
 import com.panabuntu.weathertracker.core.domain.result.NetworkError
 import com.panabuntu.weathertracker.core.domain.result.Result
 import com.panabuntu.weathertracker.core.domain.util.AppLogger
-import com.panabuntu.weathertracker.feature.forecast_daily.repository.model.Daily
-import com.panabuntu.weathertracker.feature.forecast_daily.repository.usecase.GetDailyForecastUseCase
+import com.panabuntu.weathertracker.feature.forecast_daily.model.Daily
+import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDailyForecastUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.UnconfinedTestDispatcher

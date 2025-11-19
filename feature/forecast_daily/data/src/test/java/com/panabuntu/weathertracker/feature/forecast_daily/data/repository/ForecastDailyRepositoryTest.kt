@@ -14,7 +14,7 @@ import com.panabuntu.weathertracker.feature.forecast_daily.data.dummy_data.Forec
 import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toEntity
 import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toModel
 import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.FakeForecastDailyRemoteDataSource
-import com.panabuntu.weathertracker.feature.forecast_daily.repository.repository.ForecastDailyRepository
+import com.panabuntu.weathertracker.feature.forecast_daily.repository.ForecastDailyRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test

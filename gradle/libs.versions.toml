@@ -13,6 +13,7 @@ min_sdk = "26"
 kotlin = "2.2.21"
 ksp = "2.2.21-2.0.4"
 ktx = '1.17.0'
+coroutines = "1.10.2"
 
 #Compose
 composeBom = "2025.11.00"
@@ -81,12 +82,15 @@ materialVersion = "1.13.0"
 coreTesting = "2.2.0"
 androidxAppcompatVersion = "1.7.1"
 googleMaterial = "1.13.0"
+androidxAppcompatAppcompat = "1.7.1"
+googleMaterialVersion = "1.13.0"
 
 [libraries]
 
 #Kotlin
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 
 #Android
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
@@ -174,6 +178,8 @@ androidx-core = { module = "androidx.test:core", version.ref = "testCoreAux" }
 cash-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppcompatAppcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterialVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

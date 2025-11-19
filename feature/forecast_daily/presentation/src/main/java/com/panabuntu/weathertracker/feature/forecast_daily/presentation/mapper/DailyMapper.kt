@@ -3,7 +3,7 @@ package com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper
 import androidx.compose.ui.util.fastRoundToInt
 import com.panabuntu.weathertracker.core.presentation.util.UiText
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp.DayForecastEntityView
-import com.panabuntu.weathertracker.feature.forecast_daily.repository.model.Daily
+import com.panabuntu.weathertracker.feature.forecast_daily.model.Daily
 import com.panabuntu.weathertracker.forecast_list.presentation.R
 import java.time.LocalDate
 

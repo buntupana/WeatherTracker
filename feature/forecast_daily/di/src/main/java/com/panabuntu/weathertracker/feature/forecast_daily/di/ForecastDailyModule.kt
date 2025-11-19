@@ -4,8 +4,8 @@ import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_sour
 import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.ForecastDailyRemoteDataSourceImpl
 import com.panabuntu.weathertracker.feature.forecast_daily.data.repository.ForecastDailyRepositoryImpl
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.ForecastDailyViewModel
-import com.panabuntu.weathertracker.feature.forecast_daily.repository.repository.ForecastDailyRepository
-import com.panabuntu.weathertracker.feature.forecast_daily.repository.usecase.GetDailyForecastUseCase
+import com.panabuntu.weathertracker.feature.forecast_daily.repository.ForecastDailyRepository
+import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDailyForecastUseCase
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind

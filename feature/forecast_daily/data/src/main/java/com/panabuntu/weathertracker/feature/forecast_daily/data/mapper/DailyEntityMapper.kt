@@ -2,7 +2,7 @@ package com.panabuntu.weathertracker.feature.forecast_daily.data.mapper
 
 import com.panabuntu.weathertracker.core.data.entity.DailyEntity
 import com.panabuntu.weathertracker.core.domain.util.toLocalDate
-import com.panabuntu.weathertracker.feature.forecast_daily.repository.model.Daily
+import com.panabuntu.weathertracker.feature.forecast_daily.model.Daily
 import java.time.format.DateTimeParseException
 
 @Throws(DateTimeParseException::class)

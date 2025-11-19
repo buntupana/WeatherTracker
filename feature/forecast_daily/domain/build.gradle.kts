@@ -38,8 +38,8 @@ dependencies {
     // Modules
     implementation(project(":core:domain"))
 
-    implementation(libs.androidx.core.ktx)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.kotlinx.coroutines)
+
+    // Local Tests
+    testImplementation(libs.bundles.local.tests)
 }

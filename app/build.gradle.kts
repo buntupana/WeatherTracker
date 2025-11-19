@@ -55,6 +55,10 @@ dependencies {
     implementation(project(":feature:forecast_daily:domain"))
     implementation(project(":feature:forecast_daily:data"))
     implementation(project(":feature:forecast_daily:di"))
+    implementation(project(":feature:forecast_hourly:presentation"))
+    implementation(project(":feature:forecast_hourly:domain"))
+    implementation(project(":feature:forecast_hourly:data"))
+    implementation(project(":feature:forecast_hourly:di"))
 
     implementation(libs.kotlinx.serialization.json)
 
@@ -72,12 +76,9 @@ dependencies {
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)
 
-    // Testing
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    // Local Tests
+    testImplementation(libs.bundles.local.tests)
+
+    // Instrumented Tests
+    androidTestImplementation(libs.bundles.instrumented.tests)
 }
