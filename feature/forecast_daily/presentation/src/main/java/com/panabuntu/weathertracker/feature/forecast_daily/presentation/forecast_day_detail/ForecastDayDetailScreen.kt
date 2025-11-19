@@ -2,15 +2,10 @@ package com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecas
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -24,15 +19,18 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.panabuntu.weathertracker.core.presentation.comp.ErrorAndRetry
-import com.panabuntu.weathertracker.core.presentation.comp.ImageFromUrl
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.theme.LocalAppDimens
 import com.panabuntu.weathertracker.core.presentation.util.SetSystemBarsColors
+import com.panabuntu.weathertracker.core.presentation.util.UiText
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_detail.comp.ForecastContent
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_detail.comp.ForecastDayDetailTopBar
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ForecastDayDetailScreen(
-    viewModel: ForecastDayDetailViewModel = koinViewModel()
+    viewModel: ForecastDayDetailViewModel = koinViewModel(),
+    navigateBackClick: () -> Unit
 ) {
 
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -40,7 +38,10 @@ fun ForecastDayDetailScreen(
     ForecastDayDetailContent(
         state = state,
         onIntent = { intent ->
-            viewModel.onIntent(intent)
+            when (intent) {
+                ForecastDayDetailIntent.NavigateBack -> navigateBackClick()
+                else -> viewModel.onIntent(intent)
+            }
         }
     )
 }
@@ -60,7 +61,12 @@ private fun ForecastDayDetailContent(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
-//            ForecastDailyTopBar(locationName = state.locationName)
+            ForecastDayDetailTopBar(
+                locationName = state.locationName,
+                onBackClick = {
+                    onIntent(ForecastDayDetailIntent.NavigateBack)
+                }
+            )
         }
     ) { paddingValues ->
 
@@ -101,19 +107,10 @@ private fun ForecastDayDetailContent(
 
             state.forecastDetailInfo ?: return@PullToRefreshBox
 
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
-            ) {
-
-                Row() {
-                    ImageFromUrl(
-                        modifier = Modifier.size(80.dp),
-                        imageUrl = state.forecastDetailInfo.iconUrl
-                    )
-                }
-            }
+            ForecastContent(
+                modifier = Modifier.fillMaxSize(),
+                forecast = state.forecastDetailInfo
+            )
         }
     }
 }
@@ -130,6 +127,23 @@ private fun ForecastDayDetailContent(
 )
 @Composable
 private fun ForecastDayDetailScreenPreview() {
+
+    val info = ForecastDetailInfo(
+        dayName = UiText.DynamicString("Today"),
+        iconUrl = "",
+        minTemp = "12°",
+        maxTemp = "23°",
+        monthName = UiText.DynamicString("January"),
+        windSpeed = UiText.DynamicString("12 km/h"),
+        sunrise = "12:00",
+        sunset = "12:00",
+        humidity = "12%",
+        uvIndex = "12",
+        rainProbability = "12%",
+        description = "Clear Sky",
+        dayOfMonth = 12
+    )
+
     AppTheme {
         ForecastDayDetailContent(
             state = ForecastDayDetailState(
@@ -137,7 +151,8 @@ private fun ForecastDayDetailScreenPreview() {
                 isRefreshing = false,
 //                errorMessage = UiText.DynamicString("test"),
                 errorMessage = null,
-                forecastDetailInfo = null
+                locationName = "Madrid",
+                forecastDetailInfo = info
             ),
             onIntent = {}
         )

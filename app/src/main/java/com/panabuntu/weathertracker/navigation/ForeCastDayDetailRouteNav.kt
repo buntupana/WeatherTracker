@@ -8,5 +8,7 @@ import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast
 fun ForeCastDayDetailRouteNav(
     navRoutesMain: NavRoutesMain
 ) {
-    ForecastDayDetailScreen()
+    ForecastDayDetailScreen(
+        navigateBackClick = { navRoutesMain.popBackStack() }
+    )
 }

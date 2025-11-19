@@ -4,7 +4,9 @@ import com.panabuntu.weathertracker.core.presentation.util.UiText
 
 data class ForecastDetailInfo(
     val dayName: UiText,
+    val description: String?,
     val monthName: UiText,
+    val dayOfMonth: Int,
     val iconUrl: String? = null,
     val minTemp: String,
     val maxTemp: String,

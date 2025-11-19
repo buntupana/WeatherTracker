@@ -6,5 +6,6 @@ data class ForecastDayDetailState(
     val isLoading: Boolean = false,
     val isRefreshing: Boolean = false,
     val errorMessage: UiText? = null,
+    val locationName: String,
     val forecastDetailInfo: ForecastDetailInfo? = null
 )

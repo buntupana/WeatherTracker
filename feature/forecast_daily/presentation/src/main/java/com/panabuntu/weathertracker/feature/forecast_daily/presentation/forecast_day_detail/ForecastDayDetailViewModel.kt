@@ -6,13 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.panabuntu.weathertracker.core.domain.result.onError
 import com.panabuntu.weathertracker.core.domain.result.onSuccess
 import com.panabuntu.weathertracker.core.domain.util.AppLogger
+import com.panabuntu.weathertracker.core.presentation.R
 import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarController
 import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarEvent
 import com.panabuntu.weathertracker.core.presentation.util.UiText
 import com.panabuntu.weathertracker.core.presentation.util.navArgs
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper.toForecastDetailInfo
 import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastDetailUseCase
-import com.panabuntu.weathertracker.forecast_list.presentation.R
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -33,7 +33,8 @@ class ForecastDayDetailViewModel(
     private var hasLoadedInitialData = false
     private var isDataLoadedSuccessfully = false
 
-    private val _state = MutableStateFlow(ForecastDayDetailState())
+    private val _state =
+        MutableStateFlow(ForecastDayDetailState(locationName = navArgs.locationName))
     var state = _state
         .onStart {
             if (!hasLoadedInitialData) {
@@ -44,17 +45,17 @@ class ForecastDayDetailViewModel(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000L),
-            initialValue = ForecastDayDetailState()
+            initialValue = ForecastDayDetailState(locationName = navArgs.locationName)
         )
 
     private var getDayDetailJob: Job? = null
-
 
     fun onIntent(intent: ForecastDayDetailIntent) {
         logger.d("onIntent() called with: intent = [$intent]")
         viewModelScope.launch {
             when (intent) {
                 ForecastDayDetailIntent.GetDayDetail -> getDayDetail()
+                else -> {}
             }
         }
     }

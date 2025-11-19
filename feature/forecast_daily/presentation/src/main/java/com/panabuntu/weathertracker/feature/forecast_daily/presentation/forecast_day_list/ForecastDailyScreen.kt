@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.feature.forecast_day_list.presentation.forecast_day_list
+package com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list
 
 import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
@@ -28,19 +28,21 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.panabuntu.weathertracker.core.domain.Const
+import com.panabuntu.weathertracker.core.presentation.R
 import com.panabuntu.weathertracker.core.presentation.comp.ErrorAndRetry
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.theme.LocalAppDimens
 import com.panabuntu.weathertracker.core.presentation.util.SetSystemBarsColors
-import com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp.DayForecastCard
-import com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp.ForecastDailyTopBar
-import com.panabuntu.weathertracker.forecast_list.presentation.R
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.comp.DayForecastCard
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.comp.ForecastDailyTopBar
+import com.panabuntu.weathertracker.feature.forecast_day_list.presentation.forecast_day_list.ForecastDailyIntent
+import com.panabuntu.weathertracker.feature.forecast_day_list.presentation.forecast_day_list.ForecastDailyState
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ForecastDailyScreen(
     viewModel: ForecastDailyViewModel = koinViewModel(),
-    onDayClick: (date: Long, lat: Double, lon: Double) -> Unit
+    onDayClick: (date: Long, lat: Double, lon: Double, locationName: String) -> Unit
 ) {
 
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -49,13 +51,15 @@ fun ForecastDailyScreen(
         state = state,
         onIntent = { intent ->
             when (intent) {
-                is ForecastDailyIntent.OnDayClick ->{
+                is ForecastDailyIntent.OnDayClick -> {
                     onDayClick(
                         intent.date,
                         state.lat,
-                        state.lon
+                        state.lon,
+                        state.locationName
                     )
                 }
+
                 else -> viewModel.onIntent(intent)
             }
         }

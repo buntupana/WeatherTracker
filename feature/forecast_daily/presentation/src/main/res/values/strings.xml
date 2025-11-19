@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="core_error_refreshing_data">Error refreshing data, try swipe down to retry</string>
-    <string name="core_error_loading_data">Error loading data, try again</string>
+
+    <string name="forecast_daily_wind_speed">Wind Speed</string>
+    <string name="forecast_daily_humidity">Humidity</string>
+    <string name="forecast_daily_sunrise">Sunrise</string>
+    <string name="forecast_daily_sunset">Sunset</string>
+    <string name="forecast_daily_uv_index">UV Index</string>
+    <string name="forecast_daily_rain_possibility">Rain Possibility</string>
+
+    <string name="forecast_daily_max_value">Max: %s</string>
+    <string name="forecast_daily_min_value">Min: %s</string>
 </resources>

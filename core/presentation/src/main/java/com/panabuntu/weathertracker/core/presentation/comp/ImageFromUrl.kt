@@ -31,7 +31,7 @@ import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 
 @Composable
 fun ImageFromUrl(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     imageUrl: String?,
     contentDescription: String? = null,
     crossFade: Boolean = true,

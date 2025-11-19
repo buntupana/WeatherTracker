@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="core_retry">Retry</string>
+    <string name="core_error_refreshing_data">Error refreshing data, try swipe down to retry</string>
+    <string name="core_error_loading_data">Error loading data, try again</string>
 
     <string name="core_today">Today</string>
     <string name="core_monday">Monday</string>

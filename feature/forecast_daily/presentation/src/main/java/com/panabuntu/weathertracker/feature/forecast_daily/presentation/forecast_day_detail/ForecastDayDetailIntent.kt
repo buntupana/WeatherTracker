@@ -2,4 +2,5 @@ package com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecas
 
 sealed class ForecastDayDetailIntent {
     data object GetDayDetail: ForecastDayDetailIntent()
+    data object NavigateBack: ForecastDayDetailIntent()
 }

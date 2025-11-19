@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp
+package com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.comp
 
 import com.panabuntu.weathertracker.core.presentation.util.UiText
 

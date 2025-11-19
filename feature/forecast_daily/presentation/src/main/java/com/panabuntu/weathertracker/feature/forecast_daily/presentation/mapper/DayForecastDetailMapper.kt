@@ -22,21 +22,22 @@ fun DayForecastDetail?.toForecastDetailInfo(
         )
 
         Units.STANDARD -> UiText.StringResource(
-            R.string.core_imperial_speed_unit,
-            (windSpeed * 100).fastRoundToInt()
+            R.string.core_standard_speed_unit,
+            windSpeed.fastRoundToInt()
         )
 
         Units.METRIC -> UiText.StringResource(
-            R.string.core_imperial_speed_unit,
-            (windSpeed * 100).fastRoundToInt()
+            R.string.core_metric_speed_unit,
+            windSpeed.fastRoundToInt()
         )
     }
 
     return ForecastDetailInfo(
         dayName = UiText.StringResource(DateLangUtil.getResIdNameOfDay(date)),
+        description = description,
         iconUrl = iconUrl,
-        minTemp = "$minTemp°",
-        maxTemp = "$maxTemp°",
+        minTemp = "${minTemp.fastRoundToInt()}°",
+        maxTemp = "${maxTemp.fastRoundToInt()}°",
         monthName = UiText.StringResource(
             DateLangUtil.getResIdNameOfMonth(date)
         ),
@@ -45,6 +46,7 @@ fun DayForecastDetail?.toForecastDetailInfo(
         sunset = sunset.toFriendlyTime(),
         humidity = "$humidity%",
         uvIndex = "$uvIndex",
-        rainProbability = "${(rainProbability * 100).fastRoundToInt()}%"
+        rainProbability = "${(rainProbability * 100).fastRoundToInt()}%",
+        dayOfMonth = date.dayOfMonth
     )
 }

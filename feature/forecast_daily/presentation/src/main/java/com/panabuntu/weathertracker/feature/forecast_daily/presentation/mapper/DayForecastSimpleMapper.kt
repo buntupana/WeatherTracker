@@ -4,7 +4,7 @@ import androidx.compose.ui.util.fastRoundToInt
 import com.panabuntu.weathertracker.core.presentation.util.DateLangUtil
 import com.panabuntu.weathertracker.core.presentation.util.UiText
 import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimple
-import com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp.DayForecastItem
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.comp.DayForecastItem
 
 fun DayForecastSimple.toDayForecastItem(): DayForecastItem {
     val dayResId = DateLangUtil.getResIdNameOfDay(date)
