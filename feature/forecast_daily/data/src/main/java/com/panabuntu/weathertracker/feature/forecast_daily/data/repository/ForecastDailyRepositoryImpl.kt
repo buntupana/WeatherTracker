@@ -37,7 +37,7 @@ class ForecastDailyRepositoryImpl(
                     lon = lon,
                     limit = Const.DEFAULT_NUMBER_DAILY_ITEMS
                 ).map {
-                    it.toDayForecastSimple({ icon -> urlProvider.createIconUrl(icon = icon) })
+                    it.toDayForecastSimple { icon -> urlProvider.createIconUrl(icon = icon) }
                 }
             },
             fetch = {
@@ -62,7 +62,7 @@ class ForecastDailyRepositoryImpl(
                     lat = lat,
                     lon = lon
                 ).map {
-                    it?.toDayForecastDetail({ icon -> urlProvider.createIconUrl(icon = icon) })
+                    it?.toDayForecastDetail { icon -> urlProvider.createIconUrl(icon = icon) }
                 }
             },
             fetch = {

@@ -1,14 +1,7 @@
 package com.panabuntu.weathertracker.core.presentation.util
 
-import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithCache
-import androidx.compose.ui.graphics.BlendMode
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.luminance
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavType
@@ -19,10 +12,6 @@ import kotlinx.serialization.json.Json
 import kotlin.reflect.KType
 import kotlin.reflect.typeOf
 
-val Context.inDarkMode: Boolean
-    get() = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
-val Context.inLightMode: Boolean
-    get() = !inDarkMode
 
 fun Color.isLight(): Boolean {
     return luminance() > 0.5f
@@ -32,15 +21,6 @@ fun Color.isLight(): Boolean {
 fun Color.getOnBackgroundColor(): Color {
     return if (isLight()) Color.Black else Color.White
 }
-
-fun Modifier.brush(brush: Brush) = this
-    .graphicsLayer(alpha = 0.99f)
-    .drawWithCache {
-        onDrawWithContent {
-            drawContent()
-            drawRect(brush, blendMode = BlendMode.SrcAtop)
-        }
-    }
 
 inline fun <reified T : Route> SavedStateHandle.navArgs(
     typeMap: Map<KType, NavType<*>> = emptyMap()

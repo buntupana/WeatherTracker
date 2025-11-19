@@ -33,8 +33,6 @@ import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.theme.LocalAppDimens
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.comp.DayForecastCard
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.comp.ForecastDailyTopBar
-import com.panabuntu.weathertracker.feature.forecast_day_list.presentation.forecast_day_list.ForecastDailyIntent
-import com.panabuntu.weathertracker.feature.forecast_day_list.presentation.forecast_day_list.ForecastDailyState
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

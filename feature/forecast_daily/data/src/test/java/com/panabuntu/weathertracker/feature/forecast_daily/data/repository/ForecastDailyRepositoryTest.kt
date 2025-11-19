@@ -51,13 +51,13 @@ class ForecastDailyRepositoryTest : KoinTest {
             remoteSource.result = remoteDaily
 
             val firstResult = dailyEntityList
-                .toDayForecastSimple({ urlProvider.createIconUrl(it) })
+                .toDayForecastSimple { urlProvider.createIconUrl(it) }
                 .take(Const.DEFAULT_NUMBER_DAILY_ITEMS)
 
             // final result will be the data from network
             val finalResult = remoteDaily.data.daily
                 .toDayForecastEntity(lat, lon)
-                .toDayForecastSimple({ urlProvider.createIconUrl(it) })
+                .toDayForecastSimple { urlProvider.createIconUrl(it) }
                 .take(Const.DEFAULT_NUMBER_DAILY_ITEMS)
 
             repository.getDayListForecast(lat, lon).test {
@@ -86,7 +86,7 @@ class ForecastDailyRepositoryTest : KoinTest {
 
         // final result will be the data from network
         val finalResult = localDaily
-            .toDayForecastSimple({ urlProvider.createIconUrl(it) })
+            .toDayForecastSimple { urlProvider.createIconUrl(it) }
             .take(Const.DEFAULT_NUMBER_DAILY_ITEMS)
 
         repository.getDayListForecast(0.0, 0.0).test {
@@ -125,7 +125,7 @@ class ForecastDailyRepositoryTest : KoinTest {
         val finalResult =
             remoteDaily.data.daily
                 .toDayForecastEntity(lat, lon)
-                .toDayForecastSimple({ urlProvider.createIconUrl(it) })
+                .toDayForecastSimple { urlProvider.createIconUrl(it) }
                 .take(Const.DEFAULT_NUMBER_DAILY_ITEMS)
 
         repository.getDayListForecast(lat, lon).test {

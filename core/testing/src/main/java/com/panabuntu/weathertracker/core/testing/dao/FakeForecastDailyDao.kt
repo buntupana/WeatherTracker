@@ -29,7 +29,7 @@ class FakeForecastDailyDao : DayForecastDao {
         limit: Int,
     ): Flow<List<DayForecastEntity>> {
         return items.map {
-            it.filter { it.lat == lat && it.lon == lon }.sortedBy { it.date }.take(limit)
+            it.filter { entity -> entity.lat == lat && entity.lon == lon }.sortedBy { entity -> entity.date }.take(limit)
         }
     }
 
@@ -44,7 +44,7 @@ class FakeForecastDailyDao : DayForecastDao {
     }
 
     override suspend fun deleteOlderThan(timestamp: Long) {
-        items.update { it.filter { it.date >= timestamp } }
+        items.update { entity -> entity.filter { it.date >= timestamp } }
     }
 
     override suspend fun clearAll() {

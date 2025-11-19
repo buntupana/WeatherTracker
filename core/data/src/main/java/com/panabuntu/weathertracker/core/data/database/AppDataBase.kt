@@ -6,12 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.panabuntu.weathertracker.core.data.database.dao.DayForecastDao
 import com.panabuntu.weathertracker.core.data.database.entity.DayForecastEntity
-import com.panabuntu.weathertracker.core.data.database.entity.HourForecastEntity
 
 @Database(
     entities = [
-        DayForecastEntity::class,
-        HourForecastEntity::class
+        DayForecastEntity::class
     ],
     version = 1,
     exportSchema = false,

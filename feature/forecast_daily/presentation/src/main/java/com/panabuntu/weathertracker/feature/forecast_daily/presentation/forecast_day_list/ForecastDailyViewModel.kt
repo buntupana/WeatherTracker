@@ -12,8 +12,6 @@ import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarEvent
 import com.panabuntu.weathertracker.core.presentation.util.UiText
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper.toDayForecastItem
 import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastListUseCase
-import com.panabuntu.weathertracker.feature.forecast_day_list.presentation.forecast_day_list.ForecastDailyIntent
-import com.panabuntu.weathertracker.feature.forecast_day_list.presentation.forecast_day_list.ForecastDailyState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
