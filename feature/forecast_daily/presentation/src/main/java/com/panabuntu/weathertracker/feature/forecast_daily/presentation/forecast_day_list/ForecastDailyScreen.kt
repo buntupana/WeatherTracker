@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
@@ -32,7 +31,6 @@ import com.panabuntu.weathertracker.core.presentation.R
 import com.panabuntu.weathertracker.core.presentation.comp.ErrorAndRetry
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.theme.LocalAppDimens
-import com.panabuntu.weathertracker.core.presentation.util.SetSystemBarsColors
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.comp.DayForecastCard
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.comp.ForecastDailyTopBar
 import com.panabuntu.weathertracker.feature.forecast_day_list.presentation.forecast_day_list.ForecastDailyIntent
@@ -73,11 +71,6 @@ private fun ForecastDailyContent(
 ) {
 
     val dimens = LocalAppDimens.current
-
-    SetSystemBarsColors(
-        statusBarColor = MaterialTheme.colorScheme.background,
-        navigationBarColor = MaterialTheme.colorScheme.background
-    )
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
