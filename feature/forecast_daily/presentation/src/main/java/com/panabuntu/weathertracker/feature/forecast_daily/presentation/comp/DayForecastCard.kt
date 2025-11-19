@@ -23,7 +23,7 @@ import com.panabuntu.weathertracker.core.presentation.comp.ImageFromUrl
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.theme.LocalAppDimens
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper.toViewEntity
-import com.panabuntu.weathertracker.feature.forecast_daily.model.Daily
+import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimple
 import com.panabuntu.weathertracker.forecast_list.presentation.R
 import java.time.LocalDate
 
@@ -111,7 +111,7 @@ fun DayForecastCard(
 @Composable
 private fun DayForecastCardPreview() {
 
-    val viewEntity = Daily(
+    val viewEntity = DayForecastSimple(
         date = LocalDate.now(),
         maxTemp = 38.3f,
         minTemp = 10.8f,

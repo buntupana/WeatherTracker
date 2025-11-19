@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.core.data.data_source
+package com.panabuntu.weathertracker.core.data.remote_data_source
 
 import com.panabuntu.weathertracker.core.domain.util.AppLogger
 import com.panabuntu.weathertracker.core.domain.result.NetworkError

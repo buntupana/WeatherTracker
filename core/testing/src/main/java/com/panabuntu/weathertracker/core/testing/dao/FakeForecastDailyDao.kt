@@ -1,21 +1,20 @@
 package com.panabuntu.weathertracker.core.testing.dao
 
-import com.panabuntu.weathertracker.core.data.dao.DailyDao
-import com.panabuntu.weathertracker.core.data.entity.DailyEntity
+import com.panabuntu.weathertracker.core.data.database.dao.DayForecastDao
+import com.panabuntu.weathertracker.core.data.database.entity.DayForecastEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import kotlin.collections.filter
 import kotlin.collections.filterNot
 import kotlin.collections.plus
 
-class FakeForecastDailyDao : DailyDao {
+class FakeForecastDailyDao : DayForecastDao {
 
-    private val items = MutableStateFlow<List<DailyEntity>>(emptyList())
+    private val items = MutableStateFlow<List<DayForecastEntity>>(emptyList())
 
-    override suspend fun upsertAll(daily: List<DailyEntity>) {
+    override suspend fun upsertSimple(daily: List<DayForecastEntity>) {
         items.update { current ->
             val updated = current
                 .filterNot { old -> daily.any { it.date == old.date } }
@@ -30,7 +29,7 @@ class FakeForecastDailyDao : DailyDao {
         lat: Double,
         lon: Double,
         limit: Int,
-    ): Flow<List<DailyEntity>> {
+    ): Flow<List<DayForecastEntity>> {
         return items.map {
             it.filter { it.lat == lat && it.lon == lon }.sortedBy { it.date }.take(limit)
         }

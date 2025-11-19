@@ -11,4 +11,5 @@ object Const {
     const val DEFAULT_LANGUAGE: String = "en"
 
     const val DEFAULT_NUMBER_DAILY_ITEMS = 7
+    const val DEFAULT_NUMBER_HOURLY_ITEMS = 24
 }

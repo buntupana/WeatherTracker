@@ -35,9 +35,11 @@ android {
 }
 
 dependencies {
+    // Modules
+    implementation(project(":core:domain"))
 
     implementation(kotlin("reflect"))
-    
+
     implementation(libs.kotlinx.coroutines)
 
     // Local Tests

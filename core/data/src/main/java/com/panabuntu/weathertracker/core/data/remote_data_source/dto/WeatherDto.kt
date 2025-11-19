@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto
+package com.panabuntu.weathertracker.core.data.remote_data_source.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

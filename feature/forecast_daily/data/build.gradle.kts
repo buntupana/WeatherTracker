@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.devtools.ksp)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 android {
@@ -42,6 +43,8 @@ dependencies {
     implementation(project(":core:domain"))
     testImplementation(project(":core:testing"))
     implementation(project(":feature:forecast_daily:domain"))
+
+    implementation(libs.kotlinx.serialization.json)
 
     // Koin
     implementation(platform(libs.koin.bom))

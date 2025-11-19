@@ -2,7 +2,7 @@ package com.panabuntu.weathertracker.core.data
 
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
-import com.panabuntu.weathertracker.core.data.util.networkBoundResource
+import com.panabuntu.weathertracker.core.data.util.networkBoundResourceList
 import com.panabuntu.weathertracker.core.domain.result.NetworkError
 import com.panabuntu.weathertracker.core.domain.result.Result
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -32,7 +32,7 @@ class NetworkBoundResourceTest {
         }
         val save: suspend (Dto) -> Unit = {}
 
-        networkBoundResource(query, fetch, save).test {
+        networkBoundResourceList(query, fetch, save).test {
             val emissionBeforeFetch = awaitItem()
             assertThat(emissionBeforeFetch).isInstanceOf(Result.Success::class.java)
             assertThat((emissionBeforeFetch as Result.Success).data).containsExactlyElementsIn(local)
@@ -57,7 +57,7 @@ class NetworkBoundResourceTest {
         }
         val save: suspend (Dto) -> Unit = { saveCalled = true }
 
-        networkBoundResource(query, fetch, save).test {
+        networkBoundResourceList(query, fetch, save).test {
             val item = awaitItem()
 
             assertThat(item).isInstanceOf(Result.Success::class.java)
@@ -77,7 +77,7 @@ class NetworkBoundResourceTest {
         }
         val save: suspend (Dto) -> Unit = {}
 
-        networkBoundResource(query, fetch, save).test {
+        networkBoundResourceList(query, fetch, save).test {
             val emission = awaitItem()
 
             assertThat(emission).isInstanceOf(Result.Error::class.java)

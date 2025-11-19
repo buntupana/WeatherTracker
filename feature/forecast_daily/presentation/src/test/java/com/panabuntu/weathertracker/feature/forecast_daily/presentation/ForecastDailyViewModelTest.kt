@@ -6,7 +6,7 @@ import com.panabuntu.weathertracker.core.domain.Const
 import com.panabuntu.weathertracker.core.domain.result.NetworkError
 import com.panabuntu.weathertracker.core.domain.result.Result
 import com.panabuntu.weathertracker.core.domain.util.AppLogger
-import com.panabuntu.weathertracker.feature.forecast_daily.model.Daily
+import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimple
 import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDailyForecastUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
@@ -35,10 +35,10 @@ class ForecastDailyViewModelTest {
 
     private lateinit var viewModel: ForecastDailyViewModel
 
-    private val dailyList: List<Daily>
+    private val dayForecastSimpleLists: List<DayForecastSimple>
         get() {
             return (0..6).map { index ->
-                Daily(
+                DayForecastSimple(
                     date = LocalDate.now().plusDays(index.toLong()),
                     maxTemp = 23f,
                     minTemp = 12f,
@@ -104,7 +104,7 @@ class ForecastDailyViewModelTest {
     fun `emits dailyList when fetch is successful`() = runTest(testDispatcher) {
 
         whenever(getDailyForecastUseCase(any(), any())).thenReturn(
-            flow { emit(Result.Success(dailyList)) }
+            flow { emit(Result.Success(dayForecastSimpleLists)) }
         )
 
         viewModel.state.test {
@@ -114,7 +114,7 @@ class ForecastDailyViewModelTest {
 
             val emission = awaitItem()
 
-            assertThat(emission.dailyList.size).isEqualTo(dailyList.size)
+            assertThat(emission.dailyList.size).isEqualTo(dayForecastSimpleLists.size)
 
             assertThat(emission.isLoading).isFalse()
             assertThat(emission.isRefreshing).isFalse()
@@ -155,7 +155,7 @@ class ForecastDailyViewModelTest {
             whenever(getDailyForecastUseCase(any(), any()))
                 .thenReturn(
                     flow {
-                        emit(Result.Success(dailyList))
+                        emit(Result.Success(dayForecastSimpleLists))
                         emit(Result.Success(emptyList()))
                     }
                 )
@@ -202,7 +202,7 @@ class ForecastDailyViewModelTest {
     fun `emits error when fetch fails and current list is not empty`() = runTest(testDispatcher) {
         whenever(getDailyForecastUseCase(any(), any())).thenReturn(
             flow {
-                emit(Result.Success(dailyList))
+                emit(Result.Success(dayForecastSimpleLists))
                 emit(Result.Error(NetworkError.SERVER_ERROR))
             }
         )

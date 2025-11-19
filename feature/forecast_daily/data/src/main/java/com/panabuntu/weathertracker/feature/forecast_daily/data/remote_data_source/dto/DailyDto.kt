@@ -1,6 +1,7 @@
 package com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto
 
 
+import com.panabuntu.weathertracker.core.data.remote_data_source.dto.WeatherDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -31,9 +32,9 @@ data class DailyDto(
     @SerialName("summary")
     val summary: String,
     @SerialName("sunrise")
-    val sunrise: Int,
+    val sunrise: Long,
     @SerialName("sunset")
-    val sunset: Int,
+    val sunset: Long,
     @SerialName("temp")
     val temp: TempDto,
     @SerialName("uvi")

@@ -44,7 +44,7 @@ class ForecastDailyRepositoryTest : KoinTest {
 
             // entity data
             val dailyEntityList = DailyEntityDummy.getDailyEntityList()
-            database.dailyDao.upsertAll(dailyEntityList)
+            database.dayForecastDao.upsertSimple(dailyEntityList)
 
             // dto data
             val remoteDaily = ForecastDailyDtoDummy.getSuccess()
@@ -80,7 +80,7 @@ class ForecastDailyRepositoryTest : KoinTest {
     @Test
     fun `getDaily() emits error when remote fails`() = runTest {
         val localDaily = DailyEntityDummy.getDailyEntityList()
-        database.dailyDao.upsertAll(localDaily)
+        database.dayForecastDao.upsertSimple(localDaily)
 
         remoteSource.result = Result.Error(NetworkError.NO_INTERNET)
 
@@ -115,7 +115,7 @@ class ForecastDailyRepositoryTest : KoinTest {
         val localDaily = DailyEntityDummy.getDailyEntityList(
             startFromLocalDate = LocalDate.now().minusMonths(1)
         )
-        database.dailyDao.upsertAll(localDaily)
+        database.dayForecastDao.upsertSimple(localDaily)
 
         // dto data
         val remoteDaily = ForecastDailyDtoDummy.getSuccess()

@@ -3,11 +3,11 @@ package com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper
 import androidx.compose.ui.util.fastRoundToInt
 import com.panabuntu.weathertracker.core.presentation.util.UiText
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp.DayForecastEntityView
-import com.panabuntu.weathertracker.feature.forecast_daily.model.Daily
+import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimple
 import com.panabuntu.weathertracker.forecast_list.presentation.R
 import java.time.LocalDate
 
-fun Daily.toViewEntity(): DayForecastEntityView {
+fun DayForecastSimple.toViewEntity(): DayForecastEntityView {
     val day = date.dayOfWeek.value
 
     val currentDate = LocalDate.now()
@@ -54,6 +54,6 @@ fun Daily.toViewEntity(): DayForecastEntityView {
     )
 }
 
-fun List<Daily>.toViewEntity(): List<DayForecastEntityView> {
+fun List<DayForecastSimple>.toViewEntity(): List<DayForecastEntityView> {
     return map { it.toViewEntity() }
 }

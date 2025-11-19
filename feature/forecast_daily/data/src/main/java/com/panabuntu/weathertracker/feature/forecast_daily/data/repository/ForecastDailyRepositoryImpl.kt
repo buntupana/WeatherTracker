@@ -2,7 +2,7 @@ package com.panabuntu.weathertracker.feature.forecast_daily.data.repository
 
 import com.panabuntu.weathertracker.core.data.database.AppDataBase
 import com.panabuntu.weathertracker.core.data.util.DateUtils
-import com.panabuntu.weathertracker.core.data.util.networkBoundResource
+import com.panabuntu.weathertracker.core.data.util.networkBoundResourceList
 import com.panabuntu.weathertracker.core.domain.Const
 import com.panabuntu.weathertracker.core.domain.provider.UrlProvider
 import com.panabuntu.weathertracker.core.domain.result.Error
@@ -10,7 +10,7 @@ import com.panabuntu.weathertracker.core.domain.result.Result
 import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toEntity
 import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toModel
 import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.ForecastDailyRemoteDataSource
-import com.panabuntu.weathertracker.feature.forecast_daily.model.Daily
+import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimple
 import com.panabuntu.weathertracker.feature.forecast_daily.repository.ForecastDailyRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -24,12 +24,12 @@ class ForecastDailyRepositoryImpl(
     override suspend fun getDaily(
         lat: Double,
         lon: Double
-    ): Flow<Result<List<Daily>, Error>> {
+    ): Flow<Result<List<DayForecastSimple>, Error>> {
 
-        return networkBoundResource(
+        return networkBoundResourceList(
             query = {
-                database.dailyDao.deleteOlderThan(DateUtils.getCurrentDayTimestampUTC())
-                database.dailyDao.getByLocation(
+                database.dayForecastDao.deleteOlderThan(DateUtils.getCurrentDayTimestampUTC())
+                database.dayForecastDao.getByLocation(
                     lat = lat,
                     lon = lon,
                     limit = Const.DEFAULT_NUMBER_DAILY_ITEMS
@@ -41,7 +41,7 @@ class ForecastDailyRepositoryImpl(
                 remoteDataSource.getDailyForecast(lat = lat, lon = lon)
             },
             saveFetchResult = {
-                database.dailyDao.upsertAll(it.daily.toEntity(lat = lat, lon = lon))
+                database.dayForecastDao.upsertSimple(it.daily.toEntity(lat = lat, lon = lon))
             }
         )
     }
