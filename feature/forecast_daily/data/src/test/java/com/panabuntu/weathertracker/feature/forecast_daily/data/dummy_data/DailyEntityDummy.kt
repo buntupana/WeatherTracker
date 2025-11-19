@@ -7,7 +7,10 @@ import java.time.ZoneOffset
 
 object DailyEntityDummy {
 
-    fun getDailyEntityList(numberOfItems: Int = Const.DEFAULT_NUMBER_DAILY_ITEMS, startFromLocalDate: LocalDate = LocalDate.now()): List<DayForecastEntity> {
+    fun getDailyEntityList(
+        numberOfItems: Int = Const.DEFAULT_NUMBER_DAILY_ITEMS,
+        startFromLocalDate: LocalDate = LocalDate.now()
+    ): List<DayForecastEntity> {
 
         return (0..<numberOfItems).map {
             val date = startFromLocalDate

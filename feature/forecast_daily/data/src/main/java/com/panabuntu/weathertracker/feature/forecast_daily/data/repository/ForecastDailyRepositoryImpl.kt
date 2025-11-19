@@ -24,7 +24,7 @@ class ForecastDailyRepositoryImpl(
     private val urlProvider: UrlProvider
 ) : ForecastDailyRepository {
 
-    override suspend fun getDayListForecast(
+    override suspend fun getDayForecastList(
         lat: Double,
         lon: Double
     ): Flow<Result<List<DayForecastSimple>, Error>> {
@@ -44,7 +44,12 @@ class ForecastDailyRepositoryImpl(
                 remoteDataSource.getDailyForecast(lat = lat, lon = lon)
             },
             saveFetchResult = {
-                database.dayForecastDao.upsertSimple(it.daily.toDayForecastEntity(lat = lat, lon = lon))
+                database.dayForecastDao.upsert(
+                    it.daily.toDayForecastEntity(
+                        lat = lat,
+                        lon = lon
+                    )
+                )
             }
         )
     }
@@ -61,15 +66,20 @@ class ForecastDailyRepositoryImpl(
                     date = date,
                     lat = lat,
                     lon = lon
-                ).map {
-                    it?.toDayForecastDetail { icon -> urlProvider.createIconUrl(icon = icon) }
+                ).map { entity ->
+                    entity?.toDayForecastDetail { icon -> urlProvider.createIconUrl(icon = icon) }
                 }
             },
             fetch = {
                 remoteDataSource.getDailyForecast(lat = lat, lon = lon)
             },
-            saveFetchResult = {
-                database.dayForecastDao.upsertSimple(it.daily.toDayForecastEntity(lat = lat, lon = lon))
+            saveFetchResult = { dto ->
+                database.dayForecastDao.upsert(
+                    dayEntity = dto.daily.toDayForecastEntity(
+                        lat = lat,
+                        lon = lon
+                    )
+                )
             }
         )
     }

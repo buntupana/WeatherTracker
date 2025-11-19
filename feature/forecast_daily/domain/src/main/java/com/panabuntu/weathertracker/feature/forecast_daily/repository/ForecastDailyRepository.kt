@@ -7,7 +7,7 @@ import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimp
 import kotlinx.coroutines.flow.Flow
 
 interface ForecastDailyRepository {
-    suspend fun getDayListForecast(lat: Double, lon: Double): Flow<Result<List<DayForecastSimple>, Error>>
+    suspend fun getDayForecastList(lat: Double, lon: Double): Flow<Result<List<DayForecastSimple>, Error>>
     suspend fun getDayForecast(
         date: Long,
         lat: Double,

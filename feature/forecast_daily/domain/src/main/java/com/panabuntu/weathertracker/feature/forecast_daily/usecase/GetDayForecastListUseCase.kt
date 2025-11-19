@@ -10,6 +10,6 @@ class GetDayForecastListUseCase(
     private val repository: ForecastDailyRepository
 ) {
     suspend operator fun invoke(lat: Double, lon: Double): Flow<Result<List<DayForecastSimple>, Error>> {
-        return repository.getDayListForecast(lat = lat, lon = lon)
+        return repository.getDayForecastList(lat = lat, lon = lon)
     }
 }

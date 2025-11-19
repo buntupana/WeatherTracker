@@ -12,7 +12,7 @@ class FakeForecastDailyDao : DayForecastDao {
 
     private val items = MutableStateFlow<List<DayForecastEntity>>(emptyList())
 
-    override suspend fun upsertSimple(dayEntity: List<DayForecastEntity>) {
+    override suspend fun upsert(dayEntity: List<DayForecastEntity>) {
         items.update { current ->
             val updated = current
                 .filterNot { old -> dayEntity.any { it.date == old.date } }

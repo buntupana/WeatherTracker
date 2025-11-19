@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface DayForecastDao {
 
-    @Upsert(entity = DayForecastEntity::class)
-    suspend fun upsertSimple(dayEntity: List<DayForecastEntity>)
+    @Upsert
+    suspend fun upsert(dayEntity: List<DayForecastEntity>)
 
     @Query(
         """
