@@ -11,10 +11,14 @@ import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimp
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.ForecastDailyState
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.ForecastDailyViewModel
 import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastListUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -28,7 +32,7 @@ import java.time.LocalDate
 class ForecastDailyViewModelTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    private val testDispatcher = UnconfinedTestDispatcher()
+    private val testDispatcher = StandardTestDispatcher()
 
     @Mock
     lateinit var logger: AppLogger
@@ -53,10 +57,19 @@ class ForecastDailyViewModelTest {
             }
         }
 
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
+    }
+
     @Before
     fun setup() {
+        Dispatchers.setMain(testDispatcher)
         MockitoAnnotations.openMocks(this)
-        viewModel = ForecastDailyViewModel(logger, getDayForecastListUseCase)
+        viewModel = ForecastDailyViewModel(
+            logger = logger,
+            getDayForecastListUseCase = getDayForecastListUseCase
+        )
     }
 
     @Test
