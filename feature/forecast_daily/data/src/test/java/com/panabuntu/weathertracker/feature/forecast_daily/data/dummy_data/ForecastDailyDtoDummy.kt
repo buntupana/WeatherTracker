@@ -1,11 +1,11 @@
 package com.panabuntu.weathertracker.feature.forecast_daily.data.dummy_data
 
+import com.panabuntu.weathertracker.core.data.remote_data_source.dto.WeatherDto
 import com.panabuntu.weathertracker.core.domain.result.Result
-import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto.DailyDto
+import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto.DayForecastDto
 import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto.FeelsLikeDto
 import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto.ForecastDailyDto
 import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto.TempDto
-import com.panabuntu.weathertracker.core.data.remote_data_source.dto.WeatherDto
 import java.time.LocalDate
 import java.time.ZoneOffset
 
@@ -32,7 +32,7 @@ object ForecastDailyDtoDummy {
     private fun getDailyList(
         numberOfItems: Int = 8,
         startFromLocalDate: LocalDate = LocalDate.now()
-    ): List<DailyDto> {
+    ): List<DayForecastDto> {
 
         return (0..numberOfItems).map { dayIndex ->
             val date = startFromLocalDate
@@ -41,7 +41,7 @@ object ForecastDailyDtoDummy {
                 .toInstant(ZoneOffset.UTC)
                 .epochSecond
 
-            DailyDto(
+            DayForecastDto(
                 dt = date,
                 sunrise = 1763276514,
                 sunset = 1763312188,

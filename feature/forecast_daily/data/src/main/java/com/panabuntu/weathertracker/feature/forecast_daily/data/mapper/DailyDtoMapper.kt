@@ -1,14 +1,14 @@
 package com.panabuntu.weathertracker.feature.forecast_daily.data.mapper
 
-import com.panabuntu.weathertracker.core.data.database.entity.DayForecastSimpleEntity
-import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto.DailyDto
+import com.panabuntu.weathertracker.core.data.database.entity.DayForecastEntity
+import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto.DayForecastDto
 
-fun List<DailyDto>.toEntity(
+fun List<DayForecastDto>.toDayForecastEntity(
     lat: Double,
     lon: Double
-): List<DayForecastSimpleEntity> {
+): List<DayForecastEntity> {
     return map {
-        DayForecastSimpleEntity(
+        DayForecastEntity(
             date = it.dt,
             lat = lat,
             lon = lon,
@@ -18,6 +18,11 @@ fun List<DailyDto>.toEntity(
             icon = it.weather.firstOrNull()?.icon,
             sunrise = it.sunrise,
             sunset = it.sunset,
+            pop = it.pop,
+            humidity = it.humidity,
+            windSpeed = it.windSpeed,
+            windDirectionDegrees = it.windDeg,
+            uvIndex = it.uvi
         )
     }
 }

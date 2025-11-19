@@ -22,22 +22,23 @@ import androidx.compose.ui.unit.dp
 import com.panabuntu.weathertracker.core.presentation.comp.ImageFromUrl
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.theme.LocalAppDimens
-import com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper.toViewEntity
 import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimple
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper.toViewEntity
 import com.panabuntu.weathertracker.forecast_list.presentation.R
 import java.time.LocalDate
 
 @Composable
 fun DayForecastCard(
     modifier: Modifier = Modifier,
-    item: DayForecastEntityView
+    item: DayForecastEntityView,
+    onClick: () -> Unit
 ) {
     val dimens = LocalAppDimens.current
 
     Card(
         modifier = modifier
             .fillMaxWidth(),
-        onClick = {}
+        onClick = onClick
     ) {
 
         Row(
@@ -113,6 +114,7 @@ private fun DayForecastCardPreview() {
 
     val viewEntity = DayForecastSimple(
         date = LocalDate.now(),
+        timestamp = 0,
         maxTemp = 38.3f,
         minTemp = 10.8f,
         description = "overcast clouds",
@@ -122,7 +124,8 @@ private fun DayForecastCardPreview() {
     AppTheme {
         DayForecastCard(
             modifier = Modifier.fillMaxWidth(),
-            item = viewEntity
+            item = viewEntity,
+            onClick = {}
         )
     }
 }

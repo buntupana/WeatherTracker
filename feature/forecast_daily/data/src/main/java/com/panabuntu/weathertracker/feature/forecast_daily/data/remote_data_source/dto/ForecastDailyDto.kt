@@ -15,5 +15,5 @@ data class ForecastDailyDto(
     @SerialName("timezone_offset")
     val timezoneOffset: Int,
     @SerialName("daily")
-    val daily: List<DailyDto>,
+    val daily: List<DayForecastDto>,
 )

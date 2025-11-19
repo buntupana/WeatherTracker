@@ -55,10 +55,6 @@ dependencies {
     implementation(project(":feature:forecast_daily:domain"))
     implementation(project(":feature:forecast_daily:data"))
     implementation(project(":feature:forecast_daily:di"))
-    implementation(project(":feature:forecast_hourly:presentation"))
-    implementation(project(":feature:forecast_hourly:domain"))
-    implementation(project(":feature:forecast_hourly:data"))
-    implementation(project(":feature:forecast_hourly:di"))
 
     implementation(libs.kotlinx.serialization.json)
 

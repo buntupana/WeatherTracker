@@ -1,7 +1,6 @@
 package com.panabuntu.weathertracker.core.data.database.entity
 
 
-import androidx.room.Embedded
 import androidx.room.Entity
 
 @Entity(
@@ -18,6 +17,9 @@ data class DayForecastEntity(
     val icon: String?,
     val sunrise: Long,
     val sunset: Long,
-    @Embedded
-    val current: Current?
+    val pop: Float,
+    val humidity: Int,
+    val windSpeed: Float,
+    val windDirectionDegrees: Int,
+    val uvIndex: Float,
 )

@@ -11,8 +11,8 @@ import com.panabuntu.weathertracker.core.testing.di.coreModuleTest
 import com.panabuntu.weathertracker.feature.forecast_daily.data.di.forecastDailyModuleTest
 import com.panabuntu.weathertracker.feature.forecast_daily.data.dummy_data.DailyEntityDummy
 import com.panabuntu.weathertracker.feature.forecast_daily.data.dummy_data.ForecastDailyDtoDummy
-import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toEntity
-import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toModel
+import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toDayForecastEntity
+import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toDayForecastSimple
 import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.FakeForecastDailyRemoteDataSource
 import com.panabuntu.weathertracker.feature.forecast_daily.repository.ForecastDailyRepository
 import kotlinx.coroutines.test.runTest
@@ -51,16 +51,16 @@ class ForecastDailyRepositoryTest : KoinTest {
             remoteSource.result = remoteDaily
 
             val firstResult = dailyEntityList
-                .toModel({ urlProvider.createIconUrl(it) })
+                .toDayForecastSimple({ urlProvider.createIconUrl(it) })
                 .take(Const.DEFAULT_NUMBER_DAILY_ITEMS)
 
             // final result will be the data from network
             val finalResult = remoteDaily.data.daily
-                .toEntity(lat, lon)
-                .toModel({ urlProvider.createIconUrl(it) })
+                .toDayForecastEntity(lat, lon)
+                .toDayForecastSimple({ urlProvider.createIconUrl(it) })
                 .take(Const.DEFAULT_NUMBER_DAILY_ITEMS)
 
-            repository.getDaily(lat, lon).test {
+            repository.getDayListForecast(lat, lon).test {
 
                 // Local database data emitted
                 val first = awaitItem()
@@ -86,10 +86,10 @@ class ForecastDailyRepositoryTest : KoinTest {
 
         // final result will be the data from network
         val finalResult = localDaily
-            .toModel({ urlProvider.createIconUrl(it) })
+            .toDayForecastSimple({ urlProvider.createIconUrl(it) })
             .take(Const.DEFAULT_NUMBER_DAILY_ITEMS)
 
-        repository.getDaily(0.0, 0.0).test {
+        repository.getDayListForecast(0.0, 0.0).test {
             // Local database data emitted
             val first = awaitItem()
             assertThat(first).isInstanceOf(Result.Success::class.java)
@@ -124,11 +124,11 @@ class ForecastDailyRepositoryTest : KoinTest {
         // final result will be the data from network
         val finalResult =
             remoteDaily.data.daily
-                .toEntity(lat, lon)
-                .toModel({ urlProvider.createIconUrl(it) })
+                .toDayForecastEntity(lat, lon)
+                .toDayForecastSimple({ urlProvider.createIconUrl(it) })
                 .take(Const.DEFAULT_NUMBER_DAILY_ITEMS)
 
-        repository.getDaily(lat, lon).test {
+        repository.getDayListForecast(lat, lon).test {
 
             // getting new data from network through database
             val second = awaitItem()

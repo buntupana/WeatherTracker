@@ -31,6 +31,10 @@ fun Long.toStartOfDayUtc(): Long {
         .toEpochMilli()
 }
 
+fun LocalDate.toUTCStartOfDayTimestamp(): Long {
+    return this.atStartOfDay(ZoneOffset.UTC).toEpochSecond()
+}
+
 @OptIn(ExperimentalContracts::class)
 fun CharSequence?.isNotNullOrBlank(): Boolean {
     contract {

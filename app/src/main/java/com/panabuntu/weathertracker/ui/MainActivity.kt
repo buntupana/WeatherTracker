@@ -21,8 +21,10 @@ import com.panabuntu.weathertracker.core.presentation.navigation.NavRoutesMain
 import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarController
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.util.ObserveAsEvents
-import com.panabuntu.weathertracker.feature.forecast_daily.presentation.ForeCastDailyRoute
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_detail.ForecastDayDetailRoute
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.ForeCastDailyRoute
 import com.panabuntu.weathertracker.navigation.ForeCastDailyRouteNav
+import com.panabuntu.weathertracker.navigation.ForeCastDayDetailRouteNav
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -72,6 +74,9 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable<ForeCastDailyRoute> {
                             ForeCastDailyRouteNav(navRoutesMain)
+                        }
+                        composable<ForecastDayDetailRoute> {
+                            ForeCastDayDetailRouteNav(navRoutesMain)
                         }
                     }
                 }

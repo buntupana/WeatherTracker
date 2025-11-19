@@ -6,8 +6,11 @@ import com.panabuntu.weathertracker.core.domain.Const
 import com.panabuntu.weathertracker.core.domain.result.NetworkError
 import com.panabuntu.weathertracker.core.domain.result.Result
 import com.panabuntu.weathertracker.core.domain.util.AppLogger
+import com.panabuntu.weathertracker.core.domain.util.toUTCStartOfDayTimestamp
 import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimple
-import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDailyForecastUseCase
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.ForecastDailyState
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.ForecastDailyViewModel
+import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastListUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -31,15 +34,17 @@ class ForecastDailyViewModelTest {
     lateinit var logger: AppLogger
 
     @Mock
-    lateinit var getDailyForecastUseCase: GetDailyForecastUseCase
+    lateinit var getDayForecastListUseCase: GetDayForecastListUseCase
 
     private lateinit var viewModel: ForecastDailyViewModel
 
     private val dayForecastSimpleLists: List<DayForecastSimple>
         get() {
+            val currentDate = LocalDate.now()
             return (0..6).map { index ->
                 DayForecastSimple(
-                    date = LocalDate.now().plusDays(index.toLong()),
+                    timestamp = currentDate.toUTCStartOfDayTimestamp(),
+                    date = currentDate.plusDays(index.toLong()),
                     maxTemp = 23f,
                     minTemp = 12f,
                     description = "description",
@@ -51,13 +56,13 @@ class ForecastDailyViewModelTest {
     @Before
     fun setup() {
         MockitoAnnotations.openMocks(this)
-        viewModel = ForecastDailyViewModel(logger, getDailyForecastUseCase)
+        viewModel = ForecastDailyViewModel(logger, getDayForecastListUseCase)
     }
 
     @Test
     fun `calls GetDailyForecast on first state subscription`() = runTest {
 
-        whenever(getDailyForecastUseCase(any(), any())).thenReturn(
+        whenever(getDayForecastListUseCase(any(), any())).thenReturn(
             flow { emit(Result.Error(NetworkError.SERVER_ERROR)) }
         )
 
@@ -72,19 +77,21 @@ class ForecastDailyViewModelTest {
             cancelAndConsumeRemainingEvents()
         }
 
-        verify(getDailyForecastUseCase).invoke(any(), any())
+        verify(getDayForecastListUseCase).invoke(any(), any())
     }
 
     @Test
     fun `set loading state before calling GetDailyForecast`() = runTest {
 
         val finalState = ForecastDailyState(
+            lat = 0.0,
+            lon = 0.0,
             isLoading = true,
             isRefreshing = false,
             locationName = Const.DEFAULT_LOCATION_NAME
         )
 
-        whenever(getDailyForecastUseCase(any(), any())).thenReturn(
+        whenever(getDayForecastListUseCase(any(), any())).thenReturn(
             flow { emit(Result.Error(NetworkError.SERVER_ERROR)) }
         )
 
@@ -103,7 +110,7 @@ class ForecastDailyViewModelTest {
     @Test
     fun `emits dailyList when fetch is successful`() = runTest(testDispatcher) {
 
-        whenever(getDailyForecastUseCase(any(), any())).thenReturn(
+        whenever(getDayForecastListUseCase(any(), any())).thenReturn(
             flow { emit(Result.Success(dayForecastSimpleLists)) }
         )
 
@@ -122,13 +129,13 @@ class ForecastDailyViewModelTest {
             ensureAllEventsConsumed()
         }
 
-        verify(getDailyForecastUseCase).invoke(any(), any())
+        verify(getDayForecastListUseCase).invoke(any(), any())
     }
 
     @Test
     fun `emits dailyList when fetch is successful but list is empty`() = runTest(testDispatcher) {
 
-        whenever(getDailyForecastUseCase(any(), any()))
+        whenever(getDayForecastListUseCase(any(), any()))
             .thenReturn(flow { emit(Result.Success(emptyList())) })
 
         viewModel.state.test {
@@ -145,14 +152,14 @@ class ForecastDailyViewModelTest {
             ensureAllEventsConsumed()
         }
 
-        verify(getDailyForecastUseCase).invoke(any(), any())
+        verify(getDayForecastListUseCase).invoke(any(), any())
     }
 
     @Test
     fun `emits dailyList when fetch is successful but list is empty and previous data was not null`() =
         runTest(testDispatcher) {
 
-            whenever(getDailyForecastUseCase(any(), any()))
+            whenever(getDayForecastListUseCase(any(), any()))
                 .thenReturn(
                     flow {
                         emit(Result.Success(dayForecastSimpleLists))
@@ -172,13 +179,13 @@ class ForecastDailyViewModelTest {
                 assertThat(emission.isRefreshing).isFalse()
             }
 
-            verify(getDailyForecastUseCase).invoke(any(), any())
+            verify(getDayForecastListUseCase).invoke(any(), any())
         }
 
     @Test
     fun `emits error when fetch fails and current list is empty`() = runTest(testDispatcher) {
 
-        whenever(getDailyForecastUseCase(any(), any())).thenReturn(
+        whenever(getDayForecastListUseCase(any(), any())).thenReturn(
             flow { emit(Result.Error(NetworkError.SERVER_ERROR)) }
         )
 
@@ -195,12 +202,12 @@ class ForecastDailyViewModelTest {
             ensureAllEventsConsumed()
         }
 
-        verify(getDailyForecastUseCase).invoke(any(), any())
+        verify(getDayForecastListUseCase).invoke(any(), any())
     }
 
     @Test
     fun `emits error when fetch fails and current list is not empty`() = runTest(testDispatcher) {
-        whenever(getDailyForecastUseCase(any(), any())).thenReturn(
+        whenever(getDayForecastListUseCase(any(), any())).thenReturn(
             flow {
                 emit(Result.Success(dayForecastSimpleLists))
                 emit(Result.Error(NetworkError.SERVER_ERROR))
@@ -220,6 +227,6 @@ class ForecastDailyViewModelTest {
             ensureAllEventsConsumed()
         }
 
-        verify(getDailyForecastUseCase).invoke(any(), any())
+        verify(getDayForecastListUseCase).invoke(any(), any())
     }
 }
