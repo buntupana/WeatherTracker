@@ -60,7 +60,7 @@ class ForecastDailyViewModelTest {
     }
 
     @Test
-    fun `calls GetDailyForecast on first state subscription`() = runTest {
+    fun `calls GetDailyForecastList on first state subscription`() = runTest {
 
         whenever(getDayForecastListUseCase(any(), any())).thenReturn(
             flow { emit(Result.Error(NetworkError.SERVER_ERROR)) }
@@ -68,13 +68,20 @@ class ForecastDailyViewModelTest {
 
         viewModel.state.test {
 
-            val emission = awaitItem()
+            val initialEmission = awaitItem()
 
-            assertThat(emission.isLoading).isFalse()
-            assertThat(emission.isRefreshing).isFalse()
-            assertThat(emission.dailyList).isEmpty()
+            assertThat(initialEmission.isLoading).isFalse()
+            assertThat(initialEmission.isRefreshing).isFalse()
+            assertThat(initialEmission.dailyList).isEmpty()
 
-            cancelAndConsumeRemainingEvents()
+            // loading emission
+            awaitItem()
+
+            // result emission
+            val finalEmission = awaitItem()
+
+            assertThat(finalEmission.isLoading).isFalse()
+            assertThat(finalEmission.isRefreshing).isFalse()
         }
 
         verify(getDayForecastListUseCase).invoke(any(), any())
@@ -84,8 +91,8 @@ class ForecastDailyViewModelTest {
     fun `set loading state before calling GetDailyForecast`() = runTest {
 
         val finalState = ForecastDailyState(
-            lat = 0.0,
-            lon = 0.0,
+            lat = Const.DEFAULT_LAT,
+            lon = Const.DEFAULT_LON,
             isLoading = true,
             isRefreshing = false,
             locationName = Const.DEFAULT_LOCATION_NAME

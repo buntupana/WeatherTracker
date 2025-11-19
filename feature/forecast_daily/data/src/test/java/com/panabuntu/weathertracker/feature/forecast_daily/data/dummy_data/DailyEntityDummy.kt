@@ -23,7 +23,14 @@ object DailyEntityDummy {
                 maxTemp = 22f,
                 minTemp = 10f,
                 icon = "01d",
-                description = "test description"
+                description = "test description",
+                windDirectionDegrees = 0,
+                uvIndex = 0f,
+                windSpeed = 0f,
+                humidity = 0,
+                sunset = 0,
+                pop = 0f,
+                sunrise = 0
             )
         }
     }

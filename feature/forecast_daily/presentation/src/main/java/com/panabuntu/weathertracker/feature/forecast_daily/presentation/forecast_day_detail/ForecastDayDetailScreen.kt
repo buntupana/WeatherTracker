@@ -1,19 +1,27 @@
 package com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_detail
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.panabuntu.weathertracker.core.presentation.comp.ErrorAndRetry
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.theme.LocalAppDimens
 import com.panabuntu.weathertracker.core.presentation.util.SetSystemBarsColors
@@ -64,7 +72,37 @@ private fun ForecastDayDetailContent(
             isRefreshing = state.isRefreshing,
             onRefresh = { onIntent(ForecastDayDetailIntent.GetDayDetail) }
         ) {
+            when {
+                state.isLoading -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
 
+                state.errorMessage != null -> {
+                    ErrorAndRetry(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(dimens.paddingLarge.dp),
+                        errorMessage = state.errorMessage.asString(),
+                        onRetryClick = {
+                            onIntent(ForecastDayDetailIntent.GetDayDetail)
+                        }
+                    )
+                    return@PullToRefreshBox
+                }
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+            ) {
+
+            }
         }
     }
 }
@@ -83,7 +121,11 @@ private fun ForecastDayDetailContent(
 private fun ForecastDayDetailScreenPreview() {
     AppTheme {
         ForecastDayDetailContent(
-            state = ForecastDayDetailState(),
+            state = ForecastDayDetailState(
+                isLoading = true,
+                isRefreshing = false,
+                errorMessage = null
+            ),
             onIntent = {}
         )
     }

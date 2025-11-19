@@ -91,7 +91,7 @@ class ForecastDailyViewModel(
                         SnackbarController.sendEvent(
                             event = SnackbarEvent(
                                 message = UiText.StringResource(
-                                    resId = R.string.forecast_daily_error_refreshing_daily_data
+                                    resId = R.string.forecast_daily_error_refreshing_data
                                 )
                             )
                         )

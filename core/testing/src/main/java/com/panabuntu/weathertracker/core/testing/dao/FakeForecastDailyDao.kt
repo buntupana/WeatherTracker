@@ -1,24 +1,22 @@
 package com.panabuntu.weathertracker.core.testing.dao
 
+import androidx.compose.ui.util.fastFirstOrNull
 import com.panabuntu.weathertracker.core.data.database.dao.DayForecastDao
 import com.panabuntu.weathertracker.core.data.database.entity.DayForecastEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
-import kotlin.collections.filter
-import kotlin.collections.filterNot
-import kotlin.collections.plus
 
 class FakeForecastDailyDao : DayForecastDao {
 
     private val items = MutableStateFlow<List<DayForecastEntity>>(emptyList())
 
-    override suspend fun upsertSimple(daily: List<DayForecastEntity>) {
+    override suspend fun upsertSimple(dayEntity: List<DayForecastEntity>) {
         items.update { current ->
             val updated = current
-                .filterNot { old -> daily.any { it.date == old.date } }
-                .plus(daily)
+                .filterNot { old -> dayEntity.any { it.date == old.date } }
+                .plus(dayEntity)
                 .sortedBy { it.date }
 
             updated
@@ -32,6 +30,16 @@ class FakeForecastDailyDao : DayForecastDao {
     ): Flow<List<DayForecastEntity>> {
         return items.map {
             it.filter { it.lat == lat && it.lon == lon }.sortedBy { it.date }.take(limit)
+        }
+    }
+
+    override fun getByLocationAndDate(
+        date: Long,
+        lat: Double,
+        lon: Double
+    ): Flow<DayForecastEntity?> {
+        return items.map { list ->
+            list.fastFirstOrNull { item -> item.lat == lat && item.lon == lon && item.date == date }
         }
     }
 

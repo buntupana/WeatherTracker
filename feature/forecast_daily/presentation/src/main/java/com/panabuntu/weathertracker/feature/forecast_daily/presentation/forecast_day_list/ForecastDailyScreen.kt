@@ -109,7 +109,7 @@ private fun ForecastDailyContent(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(dimens.paddingLarge.dp),
-                        errorMessage = stringResource(R.string.forecast_daily_error_loading_daily_data),
+                        errorMessage = stringResource(R.string.forecast_daily_error_loading_data),
                         onRetryClick = {
                             onIntent(ForecastDailyIntent.GetDailyForecast)
                         }

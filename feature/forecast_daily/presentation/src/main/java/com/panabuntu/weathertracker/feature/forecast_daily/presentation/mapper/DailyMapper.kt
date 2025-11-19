@@ -1,7 +1,6 @@
 package com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper
 
 import androidx.compose.ui.util.fastRoundToInt
-import com.panabuntu.weathertracker.core.domain.util.toUTCStartOfDayTimestamp
 import com.panabuntu.weathertracker.core.presentation.util.UiText
 import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimple
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp.DayForecastEntityView
@@ -44,7 +43,7 @@ fun DayForecastSimple.toViewEntity(): DayForecastEntityView {
     val minTempStr = "${minTemp.fastRoundToInt()}°"
 
     return DayForecastEntityView(
-        timestamp = date.toUTCStartOfDayTimestamp(),
+        timestamp = timestamp,
         iconUrl = iconUrl,
         dayName = UiText.StringResource(dayResId),
         dayOfMonth = date.dayOfMonth,

@@ -6,14 +6,19 @@ import androidx.lifecycle.viewModelScope
 import com.panabuntu.weathertracker.core.domain.result.onError
 import com.panabuntu.weathertracker.core.domain.result.onSuccess
 import com.panabuntu.weathertracker.core.domain.util.AppLogger
+import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarController
+import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarEvent
+import com.panabuntu.weathertracker.core.presentation.util.UiText
 import com.panabuntu.weathertracker.core.presentation.util.navArgs
 import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastDetailUseCase
+import com.panabuntu.weathertracker.forecast_list.presentation.R
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ForecastDayDetailViewModel(
@@ -25,6 +30,7 @@ class ForecastDayDetailViewModel(
     private val navArgs = savedStateHandle.navArgs<ForecastDayDetailRoute>()
 
     private var hasLoadedInitialData = false
+    private var isDataLoadedSuccessfully = false
 
     private val _state = MutableStateFlow(ForecastDayDetailState())
     var state = _state
@@ -55,15 +61,57 @@ class ForecastDayDetailViewModel(
     private fun getDayDetail() {
         getDayDetailJob?.cancel()
 
+        _state.update {
+            it.copy(
+                isLoading = isDataLoadedSuccessfully.not(),
+                isRefreshing = isDataLoadedSuccessfully
+            )
+        }
+
         getDayDetailJob = viewModelScope.launch {
             getDayForecastDetailUseCase(
                 date = navArgs.date,
                 lat = navArgs.lat,
                 lon = navArgs.lon
-            ).collectLatest {
-                it.onError { }
-                it.onSuccess {
-                    it
+            ).collectLatest { result ->
+                result.onError {
+                    if (isDataLoadedSuccessfully) {
+                        SnackbarController.sendEvent(
+                            event = SnackbarEvent(
+                                message = UiText.StringResource(
+                                    resId = R.string.forecast_daily_error_refreshing_data
+                                )
+                            )
+                        )
+                        _state.update { it.copy(isLoading = false, isRefreshing = false) }
+                    } else {
+                        _state.update {
+                            it.copy(
+                                isLoading = false,
+                                isRefreshing = false,
+                                errorMessage = UiText.StringResource(R.string.forecast_daily_error_loading_data)
+                            )
+                        }
+                    }
+                }
+                result.onSuccess { result ->
+                    if (result == null) {
+                        _state.update {
+                            it.copy(
+                                isLoading = false,
+                                isRefreshing = false,
+                                errorMessage = UiText.StringResource(R.string.forecast_daily_error_loading_data)
+                            )
+                        }
+                    } else {
+                        isDataLoadedSuccessfully = true
+                        _state.update {
+                            it.copy(
+                                isLoading = false,
+                                isRefreshing = false
+                            )
+                        }
+                    }
                 }
             }
         }

@@ -5,10 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.panabuntu.weathertracker.core.data.database.dao.DayForecastDao
-import com.panabuntu.weathertracker.core.data.database.dao.HourForecastDao
 import com.panabuntu.weathertracker.core.data.database.entity.DayForecastEntity
 import com.panabuntu.weathertracker.core.data.database.entity.HourForecastEntity
-import kotlin.jvm.java
 
 @Database(
     entities = [
@@ -32,6 +30,5 @@ abstract class AppDataBase : RoomDatabase() {
     }
 
     abstract val dayForecastDao: DayForecastDao
-    abstract val hourForecastDao: HourForecastDao
 
 }
