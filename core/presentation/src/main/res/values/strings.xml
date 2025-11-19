@@ -26,4 +26,8 @@
     <string name="core_october_short">Oct</string>
     <string name="core_november_short">Nov</string>
     <string name="core_december_short">Dec</string>
+
+    <string name="core_imperial_speed_unit">%s miles/h</string>
+    <string name="core_standard_speed_unit">%s km/h</string>
+    <string name="core_metric_speed_unit">%s km/h</string>
 </resources>

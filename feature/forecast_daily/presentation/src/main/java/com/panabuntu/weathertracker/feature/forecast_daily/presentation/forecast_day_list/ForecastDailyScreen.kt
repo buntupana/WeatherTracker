@@ -32,8 +32,8 @@ import com.panabuntu.weathertracker.core.presentation.comp.ErrorAndRetry
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.theme.LocalAppDimens
 import com.panabuntu.weathertracker.core.presentation.util.SetSystemBarsColors
-import com.panabuntu.weathertracker.feature.core.presentation.comp.DayForecastCard
-import com.panabuntu.weathertracker.feature.core.presentation.comp.ForecastDailyTopBar
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp.DayForecastCard
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp.ForecastDailyTopBar
 import com.panabuntu.weathertracker.forecast_list.presentation.R
 import org.koin.androidx.compose.koinViewModel
 

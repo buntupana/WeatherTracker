@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.feature.core.data.dummy_data
+package com.panabuntu.weathertracker.feature.forecast_daily.data.dummy_data
 
 import com.panabuntu.weathertracker.core.data.database.entity.DayForecastEntity
 import com.panabuntu.weathertracker.core.domain.Const

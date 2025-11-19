@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.feature.core.di
+package com.panabuntu.weathertracker.feature.forecast_daily.di
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

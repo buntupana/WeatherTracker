@@ -5,6 +5,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
@@ -22,13 +23,9 @@ fun Long.toLocalDateTime(): LocalDateTime {
         .toLocalDateTime()
 }
 
-fun Long.toStartOfDayUtc(): Long {
-    return Instant.ofEpochMilli(this)
-        .atZone(ZoneOffset.UTC)
-        .toLocalDate()
-        .atStartOfDay()
-        .toInstant(ZoneOffset.UTC)
-        .toEpochMilli()
+fun LocalDateTime.toFriendlyTime(): String {
+    val formatter = DateTimeFormatter.ofPattern("HH:mm")
+    return this.format(formatter)
 }
 
 fun LocalDate.toUTCStartOfDayTimestamp(): Long {

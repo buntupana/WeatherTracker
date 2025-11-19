@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.feature.core.presentation.comp
+package com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +23,7 @@ import com.panabuntu.weathertracker.core.presentation.R
 import com.panabuntu.weathertracker.core.presentation.comp.ImageFromUrl
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.theme.LocalAppDimens
-import com.panabuntu.weathertracker.feature.core.model.DayForecastSimple
+import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimple
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper.toDayForecastItem
 import java.time.LocalDate
 

@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.feature.core.presentation
+package com.panabuntu.weathertracker.feature.forecast_daily.presentation
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry

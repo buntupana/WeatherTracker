@@ -1,8 +1,8 @@
-package com.panabuntu.weathertracker.feature.core.data.remote_data_source
+package com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source
 
 import com.panabuntu.weathertracker.core.domain.result.NetworkError
 import com.panabuntu.weathertracker.core.domain.result.Result
-import com.panabuntu.weathertracker.feature.core.data.remote_data_source.dto.ForecastDailyDto
+import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto.ForecastDailyDto
 
 interface ForecastDailyRemoteDataSource {
 

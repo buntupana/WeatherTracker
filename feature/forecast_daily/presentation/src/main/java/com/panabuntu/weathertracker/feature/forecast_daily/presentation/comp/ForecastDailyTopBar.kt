@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.feature.core.presentation.comp
+package com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image

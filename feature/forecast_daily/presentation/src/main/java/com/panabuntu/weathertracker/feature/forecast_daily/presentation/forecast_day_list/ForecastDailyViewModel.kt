@@ -9,8 +9,8 @@ import com.panabuntu.weathertracker.core.domain.util.AppLogger
 import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarController
 import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarEvent
 import com.panabuntu.weathertracker.core.presentation.util.UiText
-import com.panabuntu.weathertracker.feature.core.usecase.GetDayForecastListUseCase
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper.toDayForecastItem
+import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastListUseCase
 import com.panabuntu.weathertracker.forecast_list.presentation.R
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow

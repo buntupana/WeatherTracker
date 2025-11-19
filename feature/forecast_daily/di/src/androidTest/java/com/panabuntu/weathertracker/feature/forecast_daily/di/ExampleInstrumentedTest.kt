@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.feature.core.di
+package com.panabuntu.weathertracker.feature.forecast_daily.di
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry

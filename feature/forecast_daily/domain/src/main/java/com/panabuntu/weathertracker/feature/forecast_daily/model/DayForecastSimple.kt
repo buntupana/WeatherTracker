@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.feature.core.model
+package com.panabuntu.weathertracker.feature.forecast_daily.model
 
 import java.time.LocalDate
 

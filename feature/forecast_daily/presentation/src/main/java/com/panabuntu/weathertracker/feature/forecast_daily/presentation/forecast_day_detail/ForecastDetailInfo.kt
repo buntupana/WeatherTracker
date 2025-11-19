@@ -8,7 +8,7 @@ data class ForecastDetailInfo(
     val iconUrl: String? = null,
     val minTemp: String,
     val maxTemp: String,
-    val windSpeed: String,
+    val windSpeed: UiText,
     val sunrise: String,
     val sunset: String,
     val humidity: String,

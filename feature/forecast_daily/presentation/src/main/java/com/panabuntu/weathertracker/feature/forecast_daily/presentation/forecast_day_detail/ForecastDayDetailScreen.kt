@@ -3,10 +3,12 @@ package com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecas
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
@@ -22,6 +24,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.panabuntu.weathertracker.core.presentation.comp.ErrorAndRetry
+import com.panabuntu.weathertracker.core.presentation.comp.ImageFromUrl
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.theme.LocalAppDimens
 import com.panabuntu.weathertracker.core.presentation.util.SetSystemBarsColors
@@ -96,16 +99,20 @@ private fun ForecastDayDetailContent(
                 }
             }
 
+            state.forecastDetailInfo ?: return@PullToRefreshBox
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
             ) {
 
-//                ImageFromUrl(
-//                    modifier = Modifier.size(80.dp),
-//                    imageUrl = state.logoUrl
-//                )
+                Row() {
+                    ImageFromUrl(
+                        modifier = Modifier.size(80.dp),
+                        imageUrl = state.forecastDetailInfo.iconUrl
+                    )
+                }
             }
         }
     }

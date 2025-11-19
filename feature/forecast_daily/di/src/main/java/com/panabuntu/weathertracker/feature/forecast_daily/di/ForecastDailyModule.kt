@@ -1,12 +1,12 @@
-package com.panabuntu.weathertracker.feature.core.di
+package com.panabuntu.weathertracker.feature.forecast_daily.di
 
-import com.panabuntu.weathertracker.feature.core.data.remote_data_source.ForecastDailyRemoteDataSource
-import com.panabuntu.weathertracker.feature.core.data.remote_data_source.ForecastDailyRemoteDataSourceImpl
-import com.panabuntu.weathertracker.feature.core.data.repository.ForecastDailyRepositoryImpl
-import com.panabuntu.weathertracker.feature.core.repository.ForecastDailyRepository
-import com.panabuntu.weathertracker.feature.core.usecase.GetDayForecastDetailUseCase
-import com.panabuntu.weathertracker.feature.core.usecase.GetDayForecastListUseCase
+import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.ForecastDailyRemoteDataSource
+import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.ForecastDailyRemoteDataSourceImpl
+import com.panabuntu.weathertracker.feature.forecast_daily.data.repository.ForecastDailyRepositoryImpl
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_detail.ForecastDayDetailViewModel
+import com.panabuntu.weathertracker.feature.forecast_daily.repository.ForecastDailyRepository
+import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastDetailUseCase
+import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastListUseCase
 import com.panabuntu.weathertracker.feature.forecast_day_list.presentation.forecast_day_list.ForecastDailyViewModel
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf

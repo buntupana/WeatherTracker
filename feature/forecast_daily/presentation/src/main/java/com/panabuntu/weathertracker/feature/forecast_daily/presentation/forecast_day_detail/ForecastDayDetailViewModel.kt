@@ -10,7 +10,8 @@ import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarControlle
 import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarEvent
 import com.panabuntu.weathertracker.core.presentation.util.UiText
 import com.panabuntu.weathertracker.core.presentation.util.navArgs
-import com.panabuntu.weathertracker.feature.core.usecase.GetDayForecastDetailUseCase
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper.toForecastDetailInfo
+import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastDetailUseCase
 import com.panabuntu.weathertracker.forecast_list.presentation.R
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -109,6 +110,7 @@ class ForecastDayDetailViewModel(
                             it.copy(
                                 isLoading = false,
                                 isRefreshing = false,
+                                forecastDetailInfo = result.toForecastDetailInfo()
                             )
                         }
                     }

@@ -1,11 +1,11 @@
-package com.panabuntu.weathertracker.feature.core.data.dummy_data
+package com.panabuntu.weathertracker.feature.forecast_daily.data.dummy_data
 
 import com.panabuntu.weathertracker.core.data.remote_data_source.dto.WeatherDto
 import com.panabuntu.weathertracker.core.domain.result.Result
-import com.panabuntu.weathertracker.feature.core.data.remote_data_source.dto.DayForecastDto
-import com.panabuntu.weathertracker.feature.core.data.remote_data_source.dto.FeelsLikeDto
-import com.panabuntu.weathertracker.feature.core.data.remote_data_source.dto.ForecastDailyDto
-import com.panabuntu.weathertracker.feature.core.data.remote_data_source.dto.TempDto
+import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto.DayForecastDto
+import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto.FeelsLikeDto
+import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto.ForecastDailyDto
+import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto.TempDto
 import java.time.LocalDate
 import java.time.ZoneOffset
 
