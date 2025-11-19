@@ -1,9 +1,9 @@
-package com.panabuntu.weathertracker.feature.forecast_daily.data.di
+package com.panabuntu.weathertracker.feature.core.data.di
 
-import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.FakeForecastDailyRemoteDataSource
-import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.ForecastDailyRemoteDataSource
-import com.panabuntu.weathertracker.feature.forecast_daily.data.repository.ForecastDailyRepositoryImpl
-import com.panabuntu.weathertracker.feature.forecast_daily.repository.ForecastDailyRepository
+import com.panabuntu.weathertracker.feature.core.data.remote_data_source.FakeForecastDailyRemoteDataSource
+import com.panabuntu.weathertracker.feature.core.data.remote_data_source.ForecastDailyRemoteDataSource
+import com.panabuntu.weathertracker.feature.core.data.repository.ForecastDailyRepositoryImpl
+import com.panabuntu.weathertracker.feature.core.repository.ForecastDailyRepository
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module

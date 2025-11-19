@@ -1,10 +1,10 @@
-package com.panabuntu.weathertracker.feature.forecast_daily.data.mapper
+package com.panabuntu.weathertracker.feature.core.data.mapper
 
 import com.panabuntu.weathertracker.core.data.database.entity.DayForecastEntity
 import com.panabuntu.weathertracker.core.domain.util.toLocalDate
 import com.panabuntu.weathertracker.core.domain.util.toLocalDateTime
-import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastDetail
-import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimple
+import com.panabuntu.weathertracker.feature.core.model.DayForecastDetail
+import com.panabuntu.weathertracker.feature.core.model.DayForecastSimple
 import java.time.format.DateTimeParseException
 
 @Throws(DateTimeParseException::class)

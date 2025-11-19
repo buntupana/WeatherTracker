@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.feature.forecast_daily.data.repository
+package com.panabuntu.weathertracker.feature.core.data.repository
 
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
@@ -8,13 +8,13 @@ import com.panabuntu.weathertracker.core.domain.result.NetworkError
 import com.panabuntu.weathertracker.core.domain.result.Result
 import com.panabuntu.weathertracker.core.testing.database.FakeAppDataBase
 import com.panabuntu.weathertracker.core.testing.di.coreModuleTest
-import com.panabuntu.weathertracker.feature.forecast_daily.data.di.forecastDailyModuleTest
-import com.panabuntu.weathertracker.feature.forecast_daily.data.dummy_data.DailyEntityDummy
-import com.panabuntu.weathertracker.feature.forecast_daily.data.dummy_data.ForecastDailyDtoDummy
-import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toDayForecastEntity
-import com.panabuntu.weathertracker.feature.forecast_daily.data.mapper.toDayForecastSimple
-import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.FakeForecastDailyRemoteDataSource
-import com.panabuntu.weathertracker.feature.forecast_daily.repository.ForecastDailyRepository
+import com.panabuntu.weathertracker.feature.core.data.di.forecastDailyModuleTest
+import com.panabuntu.weathertracker.feature.core.data.dummy_data.DailyEntityDummy
+import com.panabuntu.weathertracker.feature.core.data.dummy_data.ForecastDailyDtoDummy
+import com.panabuntu.weathertracker.feature.core.data.mapper.toDayForecastEntity
+import com.panabuntu.weathertracker.feature.core.data.mapper.toDayForecastSimple
+import com.panabuntu.weathertracker.feature.core.data.remote_data_source.FakeForecastDailyRemoteDataSource
+import com.panabuntu.weathertracker.feature.core.repository.ForecastDailyRepository
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test

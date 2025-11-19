@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="core_retry">Retry</string>
+
+    <string name="core_today">Today</string>
+    <string name="core_monday">Monday</string>
+    <string name="core_tuesday">Tuesday</string>
+    <string name="core_wednesday">Wednesday</string>
+    <string name="core_thursday">Thursday</string>
+    <string name="core_friday">Friday</string>
+    <string name="core_saturday">Saturday</string>
+    <string name="core_sunday">Sunday</string>
+
+    <string name="core_temp_max">Max: %s</string>
+    <string name="core_temp_min">Low: %s</string>
+
+    <string name="core_january_short">Jan</string>
+    <string name="core_february_short">Feb</string>
+    <string name="core_march_short">Mar</string>
+    <string name="core_april_short">Apr</string>
+    <string name="core_may_short">May</string>
+    <string name="core_june_short">Jun</string>
+    <string name="core_july_short">Jul</string>
+    <string name="core_august_short">Aug</string>
+    <string name="core_september_short">Sep</string>
+    <string name="core_october_short">Oct</string>
+    <string name="core_november_short">Nov</string>
+    <string name="core_december_short">Dec</string>
 </resources>

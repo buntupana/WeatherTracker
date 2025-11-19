@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list
+package com.panabuntu.weathertracker.feature.forecast_day_list.presentation.forecast_day_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,8 +9,8 @@ import com.panabuntu.weathertracker.core.domain.util.AppLogger
 import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarController
 import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarEvent
 import com.panabuntu.weathertracker.core.presentation.util.UiText
-import com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper.toViewEntity
-import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastListUseCase
+import com.panabuntu.weathertracker.feature.core.usecase.GetDayForecastListUseCase
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper.toDayForecastItem
 import com.panabuntu.weathertracker.forecast_list.presentation.R
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -91,7 +91,7 @@ class ForecastDailyViewModel(
                         SnackbarController.sendEvent(
                             event = SnackbarEvent(
                                 message = UiText.StringResource(
-                                    resId = R.string.forecast_daily_error_refreshing_data
+                                    resId = R.string.core_error_refreshing_data
                                 )
                             )
                         )
@@ -100,7 +100,7 @@ class ForecastDailyViewModel(
                 result.onSuccess { dailyList ->
                     _state.update {
                         it.copy(
-                            dailyList = dailyList.toViewEntity(),
+                            dailyList = dailyList.toDayForecastItem(),
                             isLoading = false,
                             isRefreshing = false
                         )

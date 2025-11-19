@@ -1,33 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="forecast_daily_error_refreshing_data">Error refreshing data, try swipe down to retry</string>
-    <string name="forecast_daily_error_loading_data">Error loading data, try again</string>
-
-    <string name="forecast_daily_today">Today</string>
-    <string name="forecast_daily_monday">Monday</string>
-    <string name="forecast_daily_tuesday">Tuesday</string>
-    <string name="forecast_daily_wednesday">Wednesday</string>
-    <string name="forecast_daily_thursday">Thursday</string>
-    <string name="forecast_daily_friday">Friday</string>
-    <string name="forecast_daily_saturday">Saturday</string>
-    <string name="forecast_daily_sunday">Sunday</string>
-
-    <string name="forecast_daily_temp_max">Max: %s</string>
-    <string name="forecast_daily_temp_min">Low: %s</string>
-
-    <string name="forecast_daily_january_short">Jan</string>
-    <string name="forecast_daily_february_short">Feb</string>
-    <string name="forecast_daily_march_short">Mar</string>
-    <string name="forecast_daily_april_short">Apr</string>
-    <string name="forecast_daily_may_short">May</string>
-    <string name="forecast_daily_june_short">Jun</string>
-    <string name="forecast_daily_july_short">Jul</string>
-    <string name="forecast_daily_august_short">Aug</string>
-    <string name="forecast_daily_september_short">Sep</string>
-    <string name="forecast_daily_october_short">Oct</string>
-    <string name="forecast_daily_november_short">Nov</string>
-    <string name="forecast_daily_december_short">Dec</string>
-
-    <string name="forecast_daily_date">%s %s</string>
-
+    <string name="core_error_refreshing_data">Error refreshing data, try swipe down to retry</string>
+    <string name="core_error_loading_data">Error loading data, try again</string>
 </resources>

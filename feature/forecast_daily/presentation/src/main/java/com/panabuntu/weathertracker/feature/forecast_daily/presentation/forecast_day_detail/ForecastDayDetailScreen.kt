@@ -102,6 +102,10 @@ private fun ForecastDayDetailContent(
                     .verticalScroll(rememberScrollState())
             ) {
 
+//                ImageFromUrl(
+//                    modifier = Modifier.size(80.dp),
+//                    imageUrl = state.logoUrl
+//                )
             }
         }
     }
@@ -122,9 +126,11 @@ private fun ForecastDayDetailScreenPreview() {
     AppTheme {
         ForecastDayDetailContent(
             state = ForecastDayDetailState(
-                isLoading = true,
+                isLoading = false,
                 isRefreshing = false,
-                errorMessage = null
+//                errorMessage = UiText.DynamicString("test"),
+                errorMessage = null,
+                forecastDetailInfo = null
             ),
             onIntent = {}
         )

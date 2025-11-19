@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.feature.forecast_daily.presentation.comp
+package com.panabuntu.weathertracker.feature.core.presentation.comp
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -19,18 +19,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.panabuntu.weathertracker.core.presentation.R
 import com.panabuntu.weathertracker.core.presentation.comp.ImageFromUrl
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.theme.LocalAppDimens
-import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimple
-import com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper.toViewEntity
-import com.panabuntu.weathertracker.forecast_list.presentation.R
+import com.panabuntu.weathertracker.feature.core.model.DayForecastSimple
+import com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper.toDayForecastItem
 import java.time.LocalDate
 
 @Composable
 fun DayForecastCard(
     modifier: Modifier = Modifier,
-    item: DayForecastEntityView,
+    item: DayForecastItem,
     onClick: () -> Unit
 ) {
     val dimens = LocalAppDimens.current
@@ -83,7 +83,7 @@ fun DayForecastCard(
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     Text(
-                        text = stringResource(R.string.forecast_daily_temp_min, item.minTemp)
+                        text = stringResource(R.string.core_temp_min, item.minTemp)
                     )
 
                     Spacer(
@@ -91,7 +91,7 @@ fun DayForecastCard(
                     )
 
                     Text(
-                        text = stringResource(R.string.forecast_daily_temp_max, item.maxTemp)
+                        text = stringResource(R.string.core_temp_max, item.maxTemp)
                     )
                 }
             }
@@ -119,7 +119,7 @@ private fun DayForecastCardPreview() {
         minTemp = 10.8f,
         description = "overcast clouds",
         iconUrl = ""
-    ).toViewEntity()
+    ).toDayForecastItem()
 
     AppTheme {
         DayForecastCard(

@@ -1,4 +1,4 @@
-package com.panabuntu.weathertracker.feature.forecast_daily.presentation
+package com.panabuntu.weathertracker.feature.core.presentation
 
 import app.cash.turbine.test
 import com.google.common.truth.Truth.assertThat
@@ -7,10 +7,10 @@ import com.panabuntu.weathertracker.core.domain.result.NetworkError
 import com.panabuntu.weathertracker.core.domain.result.Result
 import com.panabuntu.weathertracker.core.domain.util.AppLogger
 import com.panabuntu.weathertracker.core.domain.util.toUTCStartOfDayTimestamp
-import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimple
-import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.ForecastDailyState
-import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.ForecastDailyViewModel
-import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastListUseCase
+import com.panabuntu.weathertracker.feature.core.model.DayForecastSimple
+import com.panabuntu.weathertracker.feature.core.usecase.GetDayForecastListUseCase
+import com.panabuntu.weathertracker.feature.forecast_day_list.presentation.forecast_day_list.ForecastDailyState
+import com.panabuntu.weathertracker.feature.forecast_day_list.presentation.forecast_day_list.ForecastDailyViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.UnconfinedTestDispatcher

@@ -22,7 +22,7 @@ import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarControlle
 import com.panabuntu.weathertracker.core.presentation.theme.AppTheme
 import com.panabuntu.weathertracker.core.presentation.util.ObserveAsEvents
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_detail.ForecastDayDetailRoute
-import com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_list.ForeCastDailyRoute
+import com.panabuntu.weathertracker.feature.forecast_day_list.presentation.forecast_day_list.ForeCastDailyRoute
 import com.panabuntu.weathertracker.navigation.ForeCastDailyRouteNav
 import com.panabuntu.weathertracker.navigation.ForeCastDayDetailRouteNav
 import kotlinx.coroutines.launch

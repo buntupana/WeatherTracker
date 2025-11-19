@@ -5,5 +5,6 @@ import com.panabuntu.weathertracker.core.presentation.util.UiText
 data class ForecastDayDetailState(
     val isLoading: Boolean = false,
     val isRefreshing: Boolean = false,
-    val errorMessage: UiText? = null
+    val errorMessage: UiText? = null,
+    val forecastDetailInfo: ForecastDetailInfo? = null
 )

@@ -10,7 +10,7 @@ import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarControlle
 import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarEvent
 import com.panabuntu.weathertracker.core.presentation.util.UiText
 import com.panabuntu.weathertracker.core.presentation.util.navArgs
-import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastDetailUseCase
+import com.panabuntu.weathertracker.feature.core.usecase.GetDayForecastDetailUseCase
 import com.panabuntu.weathertracker.forecast_list.presentation.R
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -79,7 +79,7 @@ class ForecastDayDetailViewModel(
                         SnackbarController.sendEvent(
                             event = SnackbarEvent(
                                 message = UiText.StringResource(
-                                    resId = R.string.forecast_daily_error_refreshing_data
+                                    resId = R.string.core_error_refreshing_data
                                 )
                             )
                         )
@@ -89,7 +89,7 @@ class ForecastDayDetailViewModel(
                             it.copy(
                                 isLoading = false,
                                 isRefreshing = false,
-                                errorMessage = UiText.StringResource(R.string.forecast_daily_error_loading_data)
+                                errorMessage = UiText.StringResource(R.string.core_error_loading_data)
                             )
                         }
                     }
@@ -100,7 +100,7 @@ class ForecastDayDetailViewModel(
                             it.copy(
                                 isLoading = false,
                                 isRefreshing = false,
-                                errorMessage = UiText.StringResource(R.string.forecast_daily_error_loading_data)
+                                errorMessage = UiText.StringResource(R.string.core_error_loading_data)
                             )
                         }
                     } else {
@@ -108,7 +108,7 @@ class ForecastDayDetailViewModel(
                         _state.update {
                             it.copy(
                                 isLoading = false,
-                                isRefreshing = false
+                                isRefreshing = false,
                             )
                         }
                     }

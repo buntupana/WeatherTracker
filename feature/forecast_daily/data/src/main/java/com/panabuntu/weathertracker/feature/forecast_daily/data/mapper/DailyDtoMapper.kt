@@ -1,7 +1,7 @@
-package com.panabuntu.weathertracker.feature.forecast_daily.data.mapper
+package com.panabuntu.weathertracker.feature.core.data.mapper
 
 import com.panabuntu.weathertracker.core.data.database.entity.DayForecastEntity
-import com.panabuntu.weathertracker.feature.forecast_daily.data.remote_data_source.dto.DayForecastDto
+import com.panabuntu.weathertracker.feature.core.data.remote_data_source.dto.DayForecastDto
 
 fun List<DayForecastDto>.toDayForecastEntity(
     lat: Double,

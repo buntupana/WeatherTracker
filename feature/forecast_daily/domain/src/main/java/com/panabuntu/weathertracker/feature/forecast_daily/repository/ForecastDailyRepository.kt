@@ -1,9 +1,9 @@
-package com.panabuntu.weathertracker.feature.forecast_daily.repository
+package com.panabuntu.weathertracker.feature.core.repository
 
 import com.panabuntu.weathertracker.core.domain.result.Error
 import com.panabuntu.weathertracker.core.domain.result.Result
-import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastDetail
-import com.panabuntu.weathertracker.feature.forecast_daily.model.DayForecastSimple
+import com.panabuntu.weathertracker.feature.core.model.DayForecastDetail
+import com.panabuntu.weathertracker.feature.core.model.DayForecastSimple
 import kotlinx.coroutines.flow.Flow
 
 interface ForecastDailyRepository {
