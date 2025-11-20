@@ -16,15 +16,15 @@ ktx = '1.17.0'
 coroutines = "1.10.2"
 
 #Compose
-composeBom = "2025.11.00"
-compose_activity = "1.11.0"
-compose_foundation = "1.9.4"
+composeBom = "2025.11.01"
+compose_activity = "1.12.0"
+compose_foundation = "1.9.5"
 compose_paging = "3.3.6"
-compose_lifecycle = "2.9.4"
+compose_lifecycle = "2.10.0"
 
 #Android dependencies
-lifecycle = "2.9.4"
-room = "2.8.3"
+lifecycle = "2.10.0"
+room = "2.8.4"
 navigation = "2.9.6"
 palette = '1.0.0'
 
@@ -40,13 +40,9 @@ koin-bom = "4.1.1"
 ktor_bom = "3.3.2"
 ktor = "3.3.2"
 
-#Storage
-datastore = "1.1.7"
-
 #Tools
 timber = '5.0.1'
 serialization = "1.9.0"
-moshi = "1.15.2"
 desugar_jdk = "2.1.5"
 secrets = "2.0.1"
 coil = "3.3.0"
@@ -68,20 +64,9 @@ truth = "1.4.5"
 
 # Plugins
 agp = "8.13.1"
-google_services = "4.4.4"
-uiToolingPreviewAndroid = "1.6.7"
-uiTooling = "1.7.3"
-appcompat = "1.7.1"
 jetbrainsKotlinJvm = "2.2.21"
-uiTextGoogleFonts = "1.9.4"
-uiGraphicsAndroid = "1.9.4"
-appcompatVersion = "1.7.1"
-material = "1.13.0"
-androidxAppcompat = "1.7.1"
-materialVersion = "1.13.0"
+uiTextGoogleFonts = "1.9.5"
 coreTesting = "2.2.0"
-androidxAppcompatVersion = "1.7.1"
-googleMaterial = "1.13.0"
 androidxAppcompatAppcompat = "1.7.1"
 googleMaterialVersion = "1.13.0"
 
@@ -110,9 +95,6 @@ androidx-compose-foundation = { group = "androidx.compose.foundation", name = "f
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 androidx-compose-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 
-#Paging
-androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "compose_paging" }
-
 #Navigation
 androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 
@@ -121,12 +103,7 @@ koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-android = { module = "io.insert-koin:koin-android" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose" }
-koin-compose = { module = "io.insert-koin:koin-compose" }
-koin-compose-viewmodel = { module = "io.insert-koin:koin-androidx-compose-viewmodel" }
 koin-compose-navigation = { module = "io.insert-koin:koin-androidx-compose-navigation" }
-
-#Theming
-androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
 
 #Network
 io-ktor-bom = { group = "io.ktor", name = "ktor-bom", version.ref = "ktor_bom" }
@@ -142,27 +119,17 @@ androidx-room = { group = "androidx.room", name = "room-ktx", version.ref = "roo
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "room" }
 androidx-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
-androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
-
-#Storate
-androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
-
-#Desugaring
-desugar-jdk = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar_jdk" }
 
 #Tools
 jakewharton-timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 io-coil-kt = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 io-coil-kt-network = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
-androidx-pallete = { group = "androidx.palette", name = "palette-ktx", version.ref = "palette" }
-androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
 
 #Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
 koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin-bom" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin-bom" }
@@ -172,14 +139,8 @@ androidx-runner = { module = "androidx.test:runner", version.ref = "testRunner" 
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 io-ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 mockito = { module = "org.mockito.kotlin: mockito-kotlin", version.ref = "mockito"}
-mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito"}
-androidx-core = { module = "androidx.test:core", version.ref = "testCoreAux" }
-
 cash-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
-
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppcompatAppcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterialVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -190,7 +151,6 @@ kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versio
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 secrets-gradle = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 
 [bundles]
 compose = [

@@ -57,6 +57,9 @@ dependencies {
     // Coil
     implementation(libs.bundles.coil)
 
+    // Fonts
+    implementation(libs.androidx.compose.ui.text.google.fonts)
+
     // Local Tests
     testImplementation(libs.bundles.local.tests)
 
