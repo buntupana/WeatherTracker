@@ -3,6 +3,7 @@ package com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecas
 import app.cash.turbine.test
 import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
+import com.panabuntu.weathertracker.core.domain.Const
 import com.panabuntu.weathertracker.core.domain.result.NetworkError
 import com.panabuntu.weathertracker.core.domain.result.Result
 import com.panabuntu.weathertracker.core.domain.util.AppLogger
@@ -52,9 +53,9 @@ class ForecastDayDetailViewModelTest: KoinTest {
     @Mock
     lateinit var logger: AppLogger
 
-    private val locationName = "Madrid"
-    private val lat = 10.0
-    private val lon = 20.0
+    private val locationName = Const.DEFAULT_LOCATION_NAME
+    private val lat = Const.DEFAULT_LAT
+    private val lon = Const.DEFAULT_LON
     private val date = 123L
 
     private val dayForecastDetail=  DayForecastDetail(
