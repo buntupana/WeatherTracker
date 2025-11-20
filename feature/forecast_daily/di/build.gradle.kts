@@ -39,6 +39,7 @@ dependencies {
 
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
+    implementation(project(":core:presentation"))
     implementation(project(":feature:forecast_daily:data"))
     implementation(project(":feature:forecast_daily:domain"))
     implementation(project(":feature:forecast_daily:presentation"))

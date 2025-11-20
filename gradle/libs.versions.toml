@@ -241,6 +241,7 @@ local-tests = [
 instrumented-tests = [
     "truth",
     "androidx-junit",
+    'androidx-compose-ui-test-manifest',
     "androidx-ui-test-junit4",
     "androidx-core-testing",
     "core-ktx",
@@ -249,5 +250,6 @@ instrumented-tests = [
     "androidx-espresso-core",
     "koin-test-junit4",
     "koin-test",
-    "cash-turbine"
+    "cash-turbine",
+    "mockito"
 ]

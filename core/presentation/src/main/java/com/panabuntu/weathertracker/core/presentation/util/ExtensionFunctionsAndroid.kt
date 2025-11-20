@@ -3,11 +3,7 @@ package com.panabuntu.weathertracker.core.presentation.util
 import android.os.Bundle
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
-import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavType
-import androidx.navigation.toRoute
-import com.panabuntu.weathertracker.core.domain.util.decodeAllStrings
-import com.panabuntu.weathertracker.core.presentation.navigation.Route
 import kotlinx.serialization.json.Json
 import kotlin.reflect.KType
 import kotlin.reflect.typeOf
@@ -20,12 +16,6 @@ fun Color.isLight(): Boolean {
 /** Return a black/white color that will be readable on top */
 fun Color.getOnBackgroundColor(): Color {
     return if (isLight()) Color.Black else Color.White
-}
-
-inline fun <reified T : Route> SavedStateHandle.navArgs(
-    typeMap: Map<KType, NavType<*>> = emptyMap()
-): T {
-    return toRoute<T>(typeMap).decodeAllStrings()
 }
 
 inline fun <reified T : Any> serializableType(

@@ -99,7 +99,7 @@ private fun ForecastDailyContent(
                     }
                 }
 
-                state.dailyList.isEmpty() -> {
+                state.dayForecastItemList.isEmpty() -> {
                     ErrorAndRetry(
                         modifier = Modifier
                             .fillMaxSize()
@@ -113,7 +113,7 @@ private fun ForecastDailyContent(
             }
 
             AnimatedVisibility(
-                visible = state.dailyList.isNotEmpty(),
+                visible = state.dayForecastItemList.isNotEmpty(),
                 enter = fadeIn(),
                 exit = fadeOut()
             ) {
@@ -127,13 +127,13 @@ private fun ForecastDailyContent(
                 ) {
 
                     items(
-                        count = state.dailyList.size,
+                        count = state.dayForecastItemList.size,
                         key = { index ->
-                            state.dailyList[index].timestamp
+                            state.dayForecastItemList[index].timestamp
                         }
                     ) { index ->
 
-                        val item = state.dailyList[index]
+                        val item = state.dayForecastItemList[index]
 
                         DayForecastCard(
                             modifier = Modifier
@@ -169,7 +169,7 @@ private fun ForecastDailyScreenPreview() {
         ForecastDailyContent(
             state = ForecastDayListState(
                 isLoading = false,
-                dailyList = listOf(),
+                dayForecastItemList = listOf(),
                 locationName = Const.DEFAULT_LOCATION_NAME,
                 lat = Const.DEFAULT_LAT,
                 lon = Const.DEFAULT_LON

@@ -74,8 +74,8 @@ class ForecastDayListViewModel(
         getDailyForecastJob = viewModelScope.launch {
             _state.update {
                 it.copy(
-                    isLoading = state.value.dailyList.isEmpty(),
-                    isRefreshing = state.value.dailyList.isNotEmpty()
+                    isLoading = state.value.dayForecastItemList.isEmpty(),
+                    isRefreshing = state.value.dayForecastItemList.isNotEmpty()
                 )
             }
 
@@ -87,7 +87,7 @@ class ForecastDayListViewModel(
                     _state.update {
                         it.copy(isLoading = false, isRefreshing = false)
                     }
-                    if (state.value.dailyList.isNotEmpty()) {
+                    if (state.value.dayForecastItemList.isNotEmpty()) {
                         SnackbarController.sendEvent(
                             event = SnackbarEvent(
                                 message = UiText.StringResource(
@@ -98,12 +98,21 @@ class ForecastDayListViewModel(
                     }
                 }
                 result.onSuccess { dailyList ->
-                    _state.update {
-                        it.copy(
-                            dailyList = dailyList.toDayForecastItem(),
-                            isLoading = false,
-                            isRefreshing = false
-                        )
+                    if (dailyList.isNotEmpty()) {
+                        _state.update {
+                            it.copy(
+                                dayForecastItemList = dailyList.toDayForecastItem(),
+                                isLoading = false,
+                                isRefreshing = false
+                            )
+                        }
+                    } else {
+                        _state.update {
+                            it.copy(
+                                isLoading = false,
+                                isRefreshing = false
+                            )
+                        }
                     }
                 }
             }

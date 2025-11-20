@@ -5,6 +5,8 @@ import com.panabuntu.weathertracker.core.data.provider.UrlProviderImpl
 import com.panabuntu.weathertracker.core.domain.Const
 import com.panabuntu.weathertracker.core.domain.provider.UrlProvider
 import com.panabuntu.weathertracker.core.domain.util.AppLogger
+import com.panabuntu.weathertracker.core.presentation.navigation.DefaultNavArgsProvider
+import com.panabuntu.weathertracker.core.presentation.navigation.NavArgsProvider
 import com.panabuntu.weathertracker.core.presentation.navigation.NavRoutesMain
 import com.panabuntu.weathertracker.core.presentation.navigation.NavRoutesMainImpl
 import io.ktor.client.HttpClient
@@ -20,6 +22,7 @@ import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.android.ext.koin.androidApplication
+import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -68,4 +71,6 @@ val coreModule = module {
             }
         }
     }
+
+    factoryOf(::DefaultNavArgsProvider).bind(NavArgsProvider::class)
 }

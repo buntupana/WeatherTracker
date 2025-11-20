@@ -1,16 +1,15 @@
 package com.panabuntu.weathertracker.feature.forecast_daily.presentation.forecast_day_detail
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.panabuntu.weathertracker.core.domain.result.onError
 import com.panabuntu.weathertracker.core.domain.result.onSuccess
 import com.panabuntu.weathertracker.core.domain.util.AppLogger
 import com.panabuntu.weathertracker.core.presentation.R
+import com.panabuntu.weathertracker.core.presentation.navigation.NavArgsProvider
 import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarController
 import com.panabuntu.weathertracker.core.presentation.snackbar.SnackbarEvent
 import com.panabuntu.weathertracker.core.presentation.util.UiText
-import com.panabuntu.weathertracker.core.presentation.util.navArgs
 import com.panabuntu.weathertracker.feature.forecast_daily.presentation.mapper.toForecastDetailInfo
 import com.panabuntu.weathertracker.feature.forecast_daily.usecase.GetDayForecastDetailUseCase
 import kotlinx.coroutines.Job
@@ -23,12 +22,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ForecastDayDetailViewModel(
-    savedStateHandle: SavedStateHandle,
+    navArgsProvider: NavArgsProvider,
     private val getDayForecastDetailUseCase: GetDayForecastDetailUseCase,
     private val logger: AppLogger
 ) : ViewModel() {
 
-    private val navArgs = savedStateHandle.navArgs<ForecastDayDetailRoute>()
+    private val navArgs = navArgsProvider.provideArg(route = ForecastDayDetailRoute::class)
 
     private var hasLoadedInitialData = false
     private var isDataLoadedSuccessfully = false
@@ -63,14 +62,15 @@ class ForecastDayDetailViewModel(
     private fun getDayDetail() {
         getDayDetailJob?.cancel()
 
-        _state.update {
-            it.copy(
-                isLoading = isDataLoadedSuccessfully.not(),
-                isRefreshing = isDataLoadedSuccessfully
-            )
-        }
-
         getDayDetailJob = viewModelScope.launch {
+
+            _state.update {
+                it.copy(
+                    isLoading = isDataLoadedSuccessfully.not(),
+                    isRefreshing = isDataLoadedSuccessfully
+                )
+            }
+
             getDayForecastDetailUseCase(
                 date = navArgs.date,
                 lat = navArgs.lat,

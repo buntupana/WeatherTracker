@@ -43,6 +43,12 @@ dependencies {
     // Modules
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
+    implementation(project(":core:presentation"))
+
+    // Compose
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.compose)
+    implementation(libs.androidx.activity.compose)
 
     // Koin
     implementation(platform(libs.koin.bom))

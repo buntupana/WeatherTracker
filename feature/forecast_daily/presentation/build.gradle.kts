@@ -45,6 +45,7 @@ dependencies {
     implementation(project(":core:presentation"))
     implementation(project(":core:domain"))
     implementation(project(":core:di"))
+    implementation(project(":core:testing"))
     implementation(project(":feature:forecast_daily:domain"))
 
     implementation(libs.kotlinx.serialization.json)

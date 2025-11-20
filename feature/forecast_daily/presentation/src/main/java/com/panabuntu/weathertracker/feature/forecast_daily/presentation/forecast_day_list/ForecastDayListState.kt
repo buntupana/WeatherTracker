@@ -8,5 +8,5 @@ data class ForecastDayListState(
     val locationName: String,
     val lat: Double,
     val lon: Double,
-    val dailyList: List<DayForecastItem> = emptyList()
+    val dayForecastItemList: List<DayForecastItem> = emptyList()
 )
