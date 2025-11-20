@@ -16,7 +16,7 @@ data class AppDimensions(
     val spacingXl: Float = 24f,
 
     val iconForecastList: Float = 80f,
-    val iconTopBar: Float = 80f,
+    val iconTopBar: Float = 60f,
 
     val forecastIcon: Float = 40f
 )

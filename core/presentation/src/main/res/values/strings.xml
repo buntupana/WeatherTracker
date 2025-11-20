@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="core_app_name">WeatherTracker</string>
 
     <string name="core_retry">Retry</string>
     <string name="core_error_refreshing_data">Error refreshing data, try swipe down to retry</string>

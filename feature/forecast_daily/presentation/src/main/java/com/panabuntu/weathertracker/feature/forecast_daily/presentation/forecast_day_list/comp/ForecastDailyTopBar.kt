@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -17,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.panabuntu.weathertracker.core.domain.Const
@@ -39,6 +39,11 @@ fun ForecastDailyTopBar(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
+                Spacer(
+                    modifier = Modifier.size(dimens.paddingLarge.dp)
+                )
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
@@ -54,13 +59,12 @@ fun ForecastDailyTopBar(
                         modifier = Modifier.size(dimens.paddingLarge.dp)
                     )
 
-                    Text(text = "WeatherTracker")
+                    Text(text = stringResource(R.string.core_app_name))
                 }
 
-                Text(
-                    modifier = Modifier.padding(horizontal = dimens.paddingLarge.dp),
-                    text = locationName
-                )
+                Spacer(modifier = Modifier.height(dimens.paddingBig.dp))
+
+                Text(text = locationName)
 
                 Spacer(modifier = Modifier.height(dimens.paddingLarge.dp))
             }
