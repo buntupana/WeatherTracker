@@ -94,11 +94,15 @@ The app is designed to scale:
 -	Use device GPS to automatically detect and select the current location.
 -	Enhances user experience by showing the local weather without manual input.
 
+**3.	Preferences**
+
+-	Give the user the option to set units and language preferences.
+
 **4.	Additional Enhancements**
 
 -	Hourly forecast display.
 -	Push notifications for severe weather alerts.
--	Background refresh of weather data using WorkManager or coroutines.
+-	Background refresh of weather data using WorkManager.
 
 
 ---
