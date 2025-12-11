@@ -16,9 +16,9 @@ ktx = '1.17.0'
 coroutines = "1.10.2"
 
 #Compose
-composeBom = "2025.11.01"
-compose_activity = "1.12.0"
-compose_foundation = "1.9.5"
+composeBom = "2025.12.00"
+compose_activity = "1.12.1"
+compose_foundation = "1.10.0"
 compose_paging = "3.3.6"
 compose_lifecycle = "2.10.0"
 
@@ -37,8 +37,8 @@ dagger_android = "1.2.0"
 koin-bom = "4.1.1"
 
 #Ktor
-ktor_bom = "3.3.2"
-ktor = "3.3.2"
+ktor_bom = "3.3.3"
+ktor = "3.3.3"
 
 #Tools
 timber = '5.0.1'
@@ -63,9 +63,9 @@ turbine = "1.2.1"
 truth = "1.4.5"
 
 # Plugins
-agp = "8.13.1"
+agp = "8.13.2"
 jetbrainsKotlinJvm = "2.2.21"
-uiTextGoogleFonts = "1.9.5"
+uiTextGoogleFonts = "1.10.0"
 coreTesting = "2.2.0"
 androidxAppcompatAppcompat = "1.7.1"
 googleMaterialVersion = "1.13.0"
