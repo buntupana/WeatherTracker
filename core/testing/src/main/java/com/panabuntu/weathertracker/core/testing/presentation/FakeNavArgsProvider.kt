@@ -1,5 +1,6 @@
 package com.panabuntu.weathertracker.core.testing.presentation
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavType
 import com.panabuntu.weathertracker.core.presentation.navigation.NavArgsProvider
@@ -11,6 +12,7 @@ class FakeNavArgsProvider: NavArgsProvider {
 
     var resultRoute: Route? = null
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : Route> provideArg(
         route: KClass<T>,
         typeMap: Map<KType, @JvmSuppressWildcards NavType<*>>
@@ -19,6 +21,7 @@ class FakeNavArgsProvider: NavArgsProvider {
     }
 
 
+    @SuppressLint("VisibleForTests")
     override fun provideOriginalHandle(): SavedStateHandle {
         return SavedStateHandle()
     }
