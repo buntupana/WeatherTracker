@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.secrets.gradle)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.google.devtools.ksp)
