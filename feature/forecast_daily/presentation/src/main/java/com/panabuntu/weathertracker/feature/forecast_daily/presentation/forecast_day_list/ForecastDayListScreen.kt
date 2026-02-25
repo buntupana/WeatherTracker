@@ -63,7 +63,7 @@ fun ForecastDailyScreen(
 }
 
 @Composable
-private fun ForecastDailyContent(
+fun ForecastDailyContent(
     state: ForecastDayListState,
     onIntent: (ForecastDayListIntent) -> Unit
 ) {

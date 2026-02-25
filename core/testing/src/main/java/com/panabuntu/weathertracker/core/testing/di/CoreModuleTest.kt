@@ -6,6 +6,7 @@ import com.panabuntu.weathertracker.core.domain.provider.UrlProvider
 import com.panabuntu.weathertracker.core.presentation.navigation.NavArgsProvider
 import com.panabuntu.weathertracker.core.testing.database.FakeAppDataBase
 import com.panabuntu.weathertracker.core.testing.presentation.FakeNavArgsProvider
+import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -14,4 +15,10 @@ val coreModuleTest = module {
     single { FakeAppDataBase() } bind AppDataBase::class
     singleOf(::UrlProviderImpl) bind UrlProvider::class
     singleOf(::FakeNavArgsProvider) bind NavArgsProvider::class
+}
+
+val coreUiModuleTest = module {
+    single<AppDataBase> {
+        AppDataBase.newInstance(context = androidApplication(), inMemory = true)
+    }
 }

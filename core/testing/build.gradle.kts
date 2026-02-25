@@ -65,5 +65,6 @@ dependencies {
     testImplementation(libs.bundles.local.tests)
 
     // Instrumented Tests
+    implementation(libs.androidx.runner)
     androidTestImplementation(libs.bundles.instrumented.tests)
 }

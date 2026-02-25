@@ -17,13 +17,24 @@ import com.panabuntu.weathertracker.core.data.database.entity.DayForecastEntity
 abstract class AppDataBase : RoomDatabase() {
 
     companion object Companion {
-        fun newInstance(context: Context): AppDataBase {
-            return Room.databaseBuilder(
-                context = context,
-                klass = AppDataBase::class.java,
-                name = "app-database"
-            ).fallbackToDestructiveMigration()
-                .build()
+
+        private const val DATABASE_NAME = "app-database"
+
+        fun newInstance(context: Context, inMemory: Boolean = false): AppDataBase {
+            return if (inMemory) {
+                Room.inMemoryDatabaseBuilder(
+                    context = context,
+                    klass = AppDataBase::class.java
+                ).build()
+            } else {
+                Room.databaseBuilder(
+                    context = context,
+                    klass = AppDataBase::class.java,
+                    name = DATABASE_NAME
+                )
+                    .fallbackToDestructiveMigration(true)
+                    .build()
+            }
         }
     }
 

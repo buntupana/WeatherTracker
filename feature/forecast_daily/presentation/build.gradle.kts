@@ -14,7 +14,7 @@ android {
     defaultConfig {
         minSdk = libs.versions.min.sdk.get().toInt()
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.panabuntu.weathertracker.core.testing.InstrumentationTestRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -48,7 +48,6 @@ dependencies {
     implementation(project(":core:presentation"))
     implementation(project(":core:domain"))
     implementation(project(":core:di"))
-    implementation(project(":core:testing"))
     implementation(project(":feature:forecast_daily:domain"))
 
     implementation(libs.kotlinx.serialization.json)
@@ -69,5 +68,6 @@ dependencies {
     testImplementation(libs.bundles.local.tests)
 
     // Instrumented Tests
+    androidTestImplementation(project(":core:testing"))
     androidTestImplementation(libs.bundles.instrumented.tests)
 }

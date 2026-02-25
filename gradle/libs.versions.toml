@@ -16,9 +16,9 @@ ktx = '1.17.0'
 coroutines = "1.10.2"
 
 #Compose
-composeBom = "2025.12.01"
+composeBom = "2026.01.00"
 compose_activity = "1.12.2"
-compose_foundation = "1.10.0"
+compose_foundation = "1.10.1"
 compose_lifecycle = "2.10.0"
 
 #Android dependencies
@@ -48,14 +48,15 @@ junitVersion = "1.3.0"
 espresso = '3.7.0'
 testRunner = '1.7.0'
 mockito = '5.4.0'
+mockk = "1.14.7"
 testCoreKtx = "1.7.0"
 kotlinxCoroutinesTest = "1.10.2"
 turbine = "1.2.1"
 truth = "1.4.5"
 
 # Plugins
-agp = "8.13.2"
-uiTextGoogleFonts = "1.10.0"
+agp = "9.0.0"
+uiTextGoogleFonts = "1.10.1"
 coreTesting = "2.2.0"
 
 [libraries]
@@ -127,6 +128,7 @@ androidx-runner = { module = "androidx.test:runner", version.ref = "testRunner" 
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 io-ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 mockito = { module = "org.mockito.kotlin: mockito-kotlin", version.ref = "mockito"}
+mockk = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 cash-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
 
@@ -199,5 +201,6 @@ instrumented-tests = [
     "koin-test-junit4",
     "koin-test",
     "cash-turbine",
-    "mockito"
+    "mockito",
+    "mockk"
 ]
